@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			{{1 | pluralize 'item'}}
+			{{2 | pluralize 'item'}}
+			<ul>
+				<li v-for="name in sort">{{$index+1}}{{($index+1) | pluralize 'st' 'nd' 'rd'}}->{{name}}</li>
+			</ul>
+			<p><pre>{{json | json}}</pre></p>
+		</div>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:"#box",
+				data:{
+					lists:[1,2,3],
+					sort:[
+						"王二狗",
+						"赵铁柱",
+						"李淑芬"
+					],
+					json:{
+						x:1,y:2
+					}
+				},
+				methods:{
+					
+				}
+			})
+		
+			
+			
+			
+		</script>
+		
+	</body>
+</html>

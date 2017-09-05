@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div id="box">
+			<app></app>
+		</div>
+		
+		<template id="app">
+			<div>
+				<p>这是App组件</p>
+				<p>msg:{{msg}}</p>
+			</div>			
+		</template>
+		
+		<script src="../base/vue2.4.1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//2.0里template里不能写并排的标签，他们外面需要有一个父级元素
+			
+			var App = Vue.extend({
+				template:"#app",
+				data(){
+					return {
+						msg:'hello vuejs'
+					}
+				}
+			})
+			
+			new Vue({
+				el:"#box",
+				components:{
+					'app':App
+				}
+			})
+			
+		</script>
+	</body>
+</html>

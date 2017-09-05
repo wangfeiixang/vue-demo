@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.css"/>
+	</head>
+	<style>
+		.demo{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #333;
+			background: red;
+		}
+		
+	</style>
+	<body>
+		
+		<div id="box">
+			<button @click="isShow=!isShow">toggle</button>
+			<div v-show="isShow" class="demo animated" transition="abc" ></div>
+		</div>
+		
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					isShow:true
+				},
+				methods:{
+					
+				},
+				transitions:{
+					abc:{
+						enterClass:"rollOut",
+						leaveClass:'flipInX'
+					}
+				}
+			})
+
+		</script>
+	</body>
+</html>

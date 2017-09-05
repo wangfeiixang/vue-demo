@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<aaa></aaa>
+		</div>
+		
+		<template id="a">
+			<div>
+				<p>这是A组件</p>
+				<p><button @click="give">give D</button></p>
+				<hr />
+				<bbb></bbb>
+				<hr />
+				<ccc></ccc>
+			</div>
+		</template>
+		<template id="b">
+			<div>
+				<p>这是B组件</p>
+				<p><button @click="give">give D</button></p>
+				<p>这是D的数据：{{Ddata}}</p>
+			</div>
+		</template>
+		<template id="c">
+			<div>
+				<p>这是C组件</p>
+				<p><button @click="give">give D</button></p>
+				<hr />
+				<ddd></ddd>
+			</div>
+		</template>
+		<template id="d">
+			<div>
+				<p>这是D组件</p>
+				<p><button @click="give">give B</button></p>
+				<p>这是A的数据：{{Adata}}</p>
+				<p>这是B的数据：{{Bdata}}</p>
+				<p>这是C的数据：{{Cdata}}</p>
+			</div>
+		</template>
+		
+		<script src="../base/vue2.0.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//2.0里我们可以通过new一个实例，让这个实例来帮助任意组件之间进行数据的传递
+			
+			var angel = new Vue()
+			
+			var D= Vue.extend({
+				template:"#d",
+				data:function(){
+					return {
+						Adata:'',
+						Bdata:'',
+						Cdata:'',
+						data:'D-data'
+					}					
+				},
+				mounted(){
+					var that=this
+					angel.$on("A-to-D",function(data){
+						that.Adata=data
+					})
+					
+					angel.$on("B-to-D",function(data){
+						that.Bdata=data
+					})
+					
+					angel.$on("C-to-D",function(data){
+						that.Cdata=data
+					})
+				},
+				methods:{
+					give(){
+						angel.$emit("D-to-B",this.data)
+					}
+				}
+			})
+			
+			var C= Vue.extend({
+				template:"#c",
+				data:function(){
+					return {
+					data:'C-data'
+				}},
+				methods:{
+					give(){
+						angel.$emit("C-to-D",this.data)
+					}
+				},
+				components:{
+					'ddd':D
+				}
+			})
+			
+			var B = Vue.extend({
+				template:"#b",
+				data:function(){
+					return {
+						data:'B-data',
+						Ddata:''
+					}
+				},
+				methods:{
+					give(){
+						angel.$emit("B-to-D",this.data)
+					}
+				},
+				mounted(){
+					var that = this
+					angel.$on("D-to-B",function(data){
+						that.Ddata=data
+					})
+				}
+			})
+			
+			var A = Vue.extend({
+				template:"#a",
+				data:function(){
+					return {
+						data:'A-data'
+					}
+				},
+				methods:{
+					give(){
+						angel.$emit("A-to-D",this.data)
+					}
+				},
+				components:{
+					'bbb':B,
+					'ccc':C
+				},
+				mounted:function(){
+					
+				}
+			})
+			
+			Vue.component("aaa",A)
+			
+			var vm=new Vue({				
+				el:"#box"
+			})
+		</script>
+	</body>
+</html>

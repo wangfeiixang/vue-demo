@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		
+	</style>
+	<body>
+		<div id="box">
+			
+			<input @keyup="get" type="text" v-model="wd" />
+			
+			<ul>
+				<li v-for="word in words"><a :href="'https://www.baidu.com/s?ie=utf-8&wd='+word">{{word}}</a></li>
+			</ul>
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+//			https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su
+			new Vue({
+				el:"#box",
+				data:{
+					wd:'',
+					words:[]
+				},
+				methods:{
+					get(){
+						var that=this;
+
+						this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
+
+							params:{
+								wd:this.wd
+							},
+							jsonp:'cb'
+
+						}).then((res)=>{
+							// console.log(res.data)
+							this.words = res.data.s
+						})
+
+
+						/*this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
+							params:{
+								wd:this.wd
+							},
+							jsonp:'cb'
+						}).then((res)=>{
+							that.words=res.data.s
+						})*/
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

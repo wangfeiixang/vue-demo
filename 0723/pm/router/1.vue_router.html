@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+	</head>
+	<style>
+		
+	</style>
+	<body>
+		<div id="root">
+			<m-header :title="title"></m-header>
+			
+			<router-view></router-view>
+						
+			<m-footer></m-footer>
+		</div>
+			
+		<template id="header">
+			<header class="bar bar-nav">
+                <h1 class="title" v-text="title"></h1>
+            </header>
+		</template>
+		
+		<template id="footer">
+			 <nav class="bar bar-tab">
+                <a :class="['tab-item external',$route.path=='/main'?'active':'']" v-link="'main'">
+                   <span class="icon icon-home"></span>
+                   <span class="tab-label">首页</span>
+               </a>
+               <a :class="['tab-item external',$route.path=='/news'?'active':'']"  v-link="{path:'news'}">
+                   <span class="icon icon-browser"></span>
+                   <span class="tab-label">新闻</span>
+               </a>
+            </nav>
+		</template>
+		
+		
+		<template id="main">
+			<div class="content">
+				main
+			</div>			
+		</template>
+		
+		<template id="news">
+			<div class="content">
+				news
+			</div>	
+		</template>
+			
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-router.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+
+			//1.引入vue-router 
+			//2.创建路由工具 ，实例化路由
+			//3.配置路由表
+			//4.启动路由
+			//5.配置重定向
+			//6.改造a标签 v-link
+			//7.设定路由切换的位置 router-view	.
+			
+			
+			var Main = Vue.extend({
+				template:"#main",
+				
+			})
+			
+			var News = Vue.extend({
+				template:"#news"
+			})
+			
+			var Header = Vue.extend({
+				props:['title'],
+				template:"#header"
+			})
+			
+			var Footer = Vue.extend({
+				template:"#footer",
+			})
+			
+			var App = Vue.extend({
+				data(){
+					return {
+						title:'夹肉饼'
+					}
+				},
+				components:{
+					'm-header':Header,
+					'm-footer':Footer
+				}
+			})
+			
+			//路由小工具
+			var router = new VueRouter()
+			
+			//配置路由表
+			
+			router.map({
+				'main':{component:Main},
+				'news':{component:News}
+			})
+			
+			router.start(App,'#root')
+			
+			router.redirect({
+				'/':"/main",
+				'*':'/main'
+			})
+			
+			//1.0 router
+			
+			
+			
+		</script>
+	</body>
+</html>

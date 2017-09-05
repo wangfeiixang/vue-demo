@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		
+	</style>
+	<body>
+		<div id="box">
+			<div :style="{color:'red',fontSize:'2em'}">haha</div>
+			<div :style="styleA">haha</div>
+			<div :style="{color:styleA.color}">haha</div>
+			
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:"#box",
+				data:{
+					styleA:{color:'blue',fontSize:'3em'}
+				}
+			})
+		</script>
+	</body>
+</html>

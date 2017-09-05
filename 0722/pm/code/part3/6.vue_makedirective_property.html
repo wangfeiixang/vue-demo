@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.demo{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #333;
+		}
+	</style>
+	<body>
+		
+		<div id="box">
+			
+			<input type="text"  v-myon:keyup.enter="alert"/>
+			
+			<div v-demo:a.b.c="msg">hello</div>
+		
+		</div>
+		
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			Vue.directive("demo",function(value){	
+				console.log(this.vm)
+				console.log(this.modifiers)//arg,modifiers,arg,modifiers
+				 this.el.innerHTML =
+				      'name - '       + this.name + '<br>' +//指令名
+				      'expression - ' + this.expression + '<br>' +
+				      'arg - '   + this.arg + '<br>' +
+				      'modifiers - '  + JSON.stringify(this.modifiers) + '<br>' +
+				      'value - '      + value+ '<br>' +''
+			})
+			
+			Vue.directive("myon",function(val){
+				console.log(val)
+				console.log(this.arg)
+				var that=this
+				this.el.addEventListener(this.arg,function(e){
+					if(that.modifiers.enter&&e.keyCode==13){
+						val()
+					}
+					
+				})
+			})
+			
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					msg:'hahaha'
+				},
+				methods:{
+					alert(){
+						alert(1)
+					}
+				}
+			})
+
+		</script>
+	</body>
+</html>

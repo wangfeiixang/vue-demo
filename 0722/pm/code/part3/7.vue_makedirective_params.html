@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.demo{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #333;
+		}
+	</style>
+	<body>
+		
+		<div id="box">
+			<input type="text"  v-model="msg" />
+			<input type="text"  v-model="msg2" />
+			<div class="demo" v-demo  a="red"   v-bind:b="msg2">{{msg}}--{{msg2}}</div>
+			<div class="demo" v-demo  a="blue"  b="big">{{msg}}--{{msg2}}</div>
+			<hr>
+			<input type="text"  v-model="someValue" />
+			<input type="text"  v-model="sf.vb" />
+			<div v-example :a="someValue" :b="sf.vb">{{sf.vb}}</div>
+			
+			
+			<div v-abc.literal="msg"></div>
+		</div>
+		
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//在指令内我们可以同设置params属性来接受指令使用时设置的参数，在钩子函数里用this.params来使用，，需要注意的是，传入的数据就是字符串，所以说不能动态传入
+			
+			
+			Vue.directive("demo",{
+				params:['a','b'],
+				deep:true,
+				/*bind(){
+					console.log(this.params)
+					this.el.style.background=this.params.a;
+					
+					this.el.style.width=this.params.b=='small'?'100px':'200px';
+					this.el.style.height=this.params.b=='small'?'100px':'200px';
+				},*/
+				 paramWatchers: {
+				    b: function (val, oldVal) {
+				      console.log('b changed!')
+				    }
+				  }
+			})
+			
+
+			Vue.directive("abc",function(value){
+				console.log(value)
+			})
+
+			Vue.directive('example', {
+			  params: ['a','b'],
+			  paramWatchers: {
+			    a: function (val, oldVal) {
+			      console.log('a changed!')
+			    },
+ 				b: function (val, oldVal) {
+			    //  console.log('b changed!')
+			      console.log(val)
+			      console.log(oldVal)
+			    }			    
+
+			  }
+			})
+			
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					msg:'hahaha',
+					msg2:'heheheh',
+					someValue:'你好',
+					sf:{
+						vw:4,
+						vb:5
+					}
+				}
+			})
+
+		</script>
+	</body>
+</html>

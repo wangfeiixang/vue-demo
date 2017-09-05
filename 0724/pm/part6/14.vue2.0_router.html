@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../base/animate.css" />
+	</head>
+	<style>
+		.router-link-active{
+			color: #f60;
+		}
+		.news .router-link-active{
+			color: deepskyblue;
+		}
+	</style>
+	<body>
+
+		<div id="root">
+			<router-link to="/main">首页</router-link>
+			<router-link to="/news">新闻</router-link>
+			
+			
+			<router-view></router-view>
+			
+		</div>
+		
+		
+		<template id="main">
+			<div>
+				<p>这里是首页</p>
+			</div>
+		</template>
+		
+		<template id="news">
+			<div class="news">
+				<p>这里是新闻页</p>
+				<router-link to="/news/inside">国内</router-link>
+				<router-link to="/news/outside">国际</router-link>
+				<hr />
+				
+				<router-view></router-view>
+				
+			</div>
+		</template>
+		
+		<template id="inside">
+			<div>
+				<p>这里是国内新闻的内容</p>
+				<ul>
+					<li><router-link to="/detail/1">国内新闻1</router-link></li>
+					<li><router-link to="/detail/2">国内新闻2</router-link></li>
+				</ul>
+			</div>
+		</template>
+		<template id="outside">
+			<div>
+				<p>这里是国际新闻的内容</p>
+			</div>
+		</template>
+		
+		<template id="detail">
+			<div>
+				<p>这里是详情...</p>
+			</div>
+		</template>
+		
+		<script src="../../base/vue2.4.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://cdn.bootcss.com/vue-router/2.7.0/vue-router.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var Inside = Vue.extend({
+				template:"#inside"
+			})
+			var Outside = Vue.extend({
+				template:"#outside"
+			})
+			
+			var Main = Vue.extend({
+				template:"#main"
+			})
+			var News = Vue.extend({
+				template:"#news"
+			})
+			var Detail = Vue.extend({
+				template:"#detail",
+				mounted(){
+					console.log(this.$route.params.id)
+				}
+			})
+			//路由表
+			var routes=[
+				{path:'/main',component:Main},
+				{
+					path:'/news',component:News,
+					children:[
+						{path:'inside',component:Inside},
+						{path:'outside',component:Outside}
+					],
+					redirect:'/news/inside'
+				},
+				{path:'/detail/:id',component:Detail},
+				{path:'/',redirect:'/main'},
+				{path:'*',redirect:'/main'}
+			]
+			
+			
+			
+			//路由小工具
+			var router = new VueRouter({
+				routes
+			})
+			
+			new Vue({
+				el:"#root",
+				router   //在任意组件里都可以用到路由相关的属性和方法
+			})
+
+			//1.如何配置路由表   
+			//2.如何重定向
+			//3.改造a标签  router-link
+			//4.确定路由切换的位置  router-view
+			//5.子路由怎么配置
+			//6.如何传参、如何接受参数..  this.$route.params
+		</script>
+	</body>
+</html>
+
+

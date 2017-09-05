@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>		
+		<div id="box">	
+			<h1>这是根组件</h1>
+			<hr />
+			<aaa></aaa>
+			
+		</div>
+		
+		<template id="a">
+			<div>
+				<h2>这是A组件--->{{msg}}</h2>	
+				<input type="text" v-model="msg" />
+				<hr />
+				<bbb :msg="msg"></bbb>
+			</div>
+		</template>
+		
+		<template id="b">
+			<div>
+				<h3>这是B组件-->这是来自A的数据：msg:{{msg}}</h3>
+			</div>
+		</template>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//父组件可以将自己动态的数据传递给子组件，当父组件的数据改变，子组件接收到的数据也会变化
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					word:'hello world',
+				},
+				components:{
+					'aaa':{
+						template:"#a",
+						data(){
+							return {
+								msg:'hello'
+							}
+						},
+						components:{
+							'bbb':{
+								props:['msg'],
+								template:'#b'
+							}
+						}
+					}
+				}
+			})
+			
+
+
+			
+		</script>
+	</body>
+</html>

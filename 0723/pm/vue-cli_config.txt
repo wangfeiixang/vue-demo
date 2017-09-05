@@ -1,0 +1,18 @@
+
+
+创建一个vue项目的方式：
+
+1.vue init simple#1.0 my-project
+
+这种情况下创建出来的是一个最low 最low的页面，毫无意义
+
+2.vue init webpack#1.0 vue-webpack
+
+需要注意eslint选项，如果选择Y会在代码中必须用eslint规范去写
+
+
+3.vue init webpack-simple#1.0 vue-webpack-simple
+ 简单的webpack环境  
+ 
+	cnpm i 安装东西    npm  run  dev   进行开发   开启一个热更新的服务器...
+				   npm run build  可以进行项目打包

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		<div id="box">
+			<hello></hello>
+		</div>
+		
+		<div id="box1">
+			<hello></hello>
+		</div>
+		
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//1.创建组件
+			//2.任何组件的外部必须有一个实例
+			
+			var App= Vue.extend({
+				template:"<h4>hello world</h4>"
+			})
+			
+			//2.全局注册 可以在任意的实例里使用
+			
+			Vue.component('hello',App)
+			
+			
+			var vm = new Vue({
+				el:"#box"
+			})
+			
+			var vm1 = new Vue({
+				el:"#box1"
+			})
+			
+
+			
+		</script>
+	</body>
+</html>

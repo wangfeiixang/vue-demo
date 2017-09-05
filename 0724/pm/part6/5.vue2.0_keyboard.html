@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<aaa v-for="x in 4"></aaa>
+		</div>
+		<template id="a">
+			<div>		
+				<input @keyup.alt.67="alert">
+				<input type="text" @keyup.f1="alert" />
+			</div>
+		</template>
+		<script src="../base/vue2.0.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+//			Vue.config.silent = true
+			//2.0添加修饰符的方法
+//			Vue.config.keyCodes.f1 = 112
+			//2.1增加了几个ctrl/shift/alt/meta
+			
+			var A={
+				template:"#a",
+				data(){
+					return {
+						
+					}
+				},
+				methods:{
+					alert(){
+						alert(1)
+					}
+				}
+			}
+			
+			var vm=new Vue({
+				
+				data:{
+					a:1
+				},
+				components:{
+					'aaa':A
+				}
+			}).$mount('#box')
+		</script>
+	</body>
+</html>

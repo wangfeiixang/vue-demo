@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<p>{{word}}</p>
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el:"#box",
+				data:{
+					word:"hello"
+				},
+				name:'allen'
+			})
+			
+			/*console.log(vm)
+			console.log(vm.$el)
+			console.log(vm.$data.word)
+			console.log(vm.word)*/
+			console.log(vm.$options)
+			console.log(vm.$options.name)
+			
+		</script>
+	</body>
+</html>

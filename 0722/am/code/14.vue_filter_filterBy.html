@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+				<li v-for="student in students | filterBy 'a' in 'name' 'keywords'">{{student | json}}</li>
+			</ul>
+		</div>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:"#box",
+				data:{
+					students:[
+						{name:'xiaofang' ,age:16,keyword:'芳,女',sex:'female'},
+						{name:'liuming' ,age:13,sex:'male'},
+						{name:'ergouzi' ,age:19,sex:'male',keywords:'abc'}
+					]
+				},
+				methods:{
+					
+				}
+			})
+		
+			
+			
+			
+		</script>
+		
+	</body>
+</html>

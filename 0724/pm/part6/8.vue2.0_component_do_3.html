@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<aaa></aaa>
+		</div>
+		
+		<template id="a">
+			<div>
+				<p>这是A组件</p>
+				<input type="text" v-model="msg.value" />
+				<p>这是我的数据：{{msg.value}}</p>
+				<hr />	
+				<bbb :msg="msg"></bbb>
+			</div>
+		</template>
+		<template id="b">
+			<div>
+				<p>这是B组件</p>
+				<input type="text" v-model="msg.value" />
+				<p>这是来自A的数据：{{msg.value}}</p>
+			</div>
+		</template>
+		<script src="../base/vue2.0.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//2.0里数据传递后不能双向控制的简单做法：
+			//传递数据的时候，传递一个引用类型的数据，当子组件改这条数据的时候，因为其实子组件和父组件用的是一个数据（参考引用类型数据的特性）所以可以做的双向控制
+			var B={
+				template:"#b",
+				props:['msg'],
+				data(){
+					return {
+						
+					}
+				},
+				
+				methods:{
+					
+				}
+			}
+
+			var A={
+				template:"#a",
+				data(){
+					return {
+						msg:{
+							value:'hello'
+						}
+					}
+				},
+				methods:{
+					
+				},
+				components:{
+					'bbb':B
+				}
+			}
+			
+			Vue.component('aaa',A)
+			
+			
+			
+			
+			var vm=new Vue({				
+				data:{
+					a:1
+				}
+			}).$mount('#box')
+		</script>
+	</body>
+</html>

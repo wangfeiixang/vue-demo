@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div id="box">
+          {{time | time}}
+        </div>
+        <script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+//      	2017-02-42
+        	Vue.filter("time",function(time){
+        		var date=new Date(time)
+        		return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()
+        	})
+        	
+            var vm = new Vue({
+                el: "#box",
+                data: {
+                   time:Date.now()
+                },
+                methods: {
+                  
+                }
+            })
+        </script>
+		
+		
+		
+	</body>
+</html>

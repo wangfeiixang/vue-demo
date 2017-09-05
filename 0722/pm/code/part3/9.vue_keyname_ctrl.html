@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.demo{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #333;
+		}
+	</style>
+	<body>
+		
+		<div id="box">
+			
+			<input type="text" @keyup.ctrl="alert" />
+			<input type="text" @keyup.alt="alert" />
+			<input type="text" @keyup.shift="alert" />
+			
+		</div>
+		
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//扩展v-on指令的modifiers，这里我们扩展了keyup的关键字
+			Vue.directive('on').keyCodes.ctrl=17;
+			Vue.directive('on').keyCodes.alt=18;
+			Vue.directive('on').keyCodes.shift=16;		
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					
+				},
+				methods:{
+					alert(){
+						alert(1)
+					}
+				}
+			})
+
+		</script>
+	</body>
+</html>

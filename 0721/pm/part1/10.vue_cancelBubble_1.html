@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		#box>div{
+			padding: 20px;
+			border: 1px solid #333;
+		}
+	</style>
+	<body>
+		<div id="box">
+			
+			<div @click="divclick">
+				<button @click.stop="buttonclick">click</button>
+			</div>
+			<form action="https://www.baidu.com/" @click.prevent>
+				<input type="submit" value="提交">
+			</form>
+			
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:"#box",
+				data:{
+					
+				},
+				methods:{
+					buttonclick(e){
+						//e.cancelBubble=true
+						alert('buttonclick')
+					},
+					divclick(){
+
+						alert('divclick')
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

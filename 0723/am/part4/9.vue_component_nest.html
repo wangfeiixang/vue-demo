@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>		
+		
+		<div id="box">
+			<p>这是根实例</p>
+			<hr />
+			<aaa></aaa>
+		</div>
+
+		<template id="a">
+			<p>这是A组件</p>
+			<hr />
+			<bbb></bbb>
+		</template>
+		
+		<template id="b">
+			<p>这是B组件</p>
+		</template>
+
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//组件如果需要有子组件，那就在组件内部加上components属性来定义和注册自己的子组件
+			//这样的话就可以在自己的模板里使用子组件了
+			
+			var B = Vue.extend({
+				template:"#b"
+			})
+			
+			var A = Vue.extend({
+				template:"#a",
+				components:{
+					'bbb':B
+				}
+			})
+			
+			
+
+			var vm = new Vue({
+				el:"#box",
+				data:{
+					word:"hello world"
+				},
+				components:{
+					'aaa':A
+				}
+			})
+
+
+			
+		</script>
+	</body>
+</html>

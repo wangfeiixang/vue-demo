@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.border{
+			border: 1px solid blue;
+		}
+		.red{
+			background: red;
+		}
+		.small{
+			width: 100px;height: 100px;
+		}
+		.big{
+			width: 200px;height: 200px;
+		}
+	</style>
+	<body>
+		<div id="box">
+			<div class="big" :class="style" ></div>
+			
+			<div :class="['small',isRed?'red':'border']"></div>
+			<div :class="obj">{{obj.big}}</div>
+			<div :class="arr"></div>
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:"#box",
+				data:{
+					style:"red",
+					isRed:false,
+					obj:{"big":true,"red":true,"border":true},
+					arr:['small',this.isRed?'red':'border']
+				}
+			})
+		</script>
+	</body>
+</html>

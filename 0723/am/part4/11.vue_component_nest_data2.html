@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>		
+		<div id="box">	
+			<h1>这是根组件:{{word}}</h1>
+			<hr />
+			<aaa></aaa>
+			
+		</div>
+		
+		<template id="a">
+			<div>
+				<h2>这是A组件</h2>
+				<hr />
+				<bbb v-bind:bmsg="msg"></bbb>
+			</div>
+		</template>
+		
+		<template id="b">
+			<div>
+				<h3>这是B组件-->这是来自A的数据：{{bmsg}}</h3>
+			</div>
+		</template>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//动态数据需要使用v-bind来进行传递
+			//父组件在给子组件绑定标签属性来传递数据的时候，key值可以有-，但是在子组件的props里我们要写成小驼峰的写法
+			
+			var A = {
+				template:'#a',
+				data(){
+					return{
+						msg:'你好!'
+					}
+				},
+				components:{
+					'bbb':{
+						template:"#b",
+						props:['bmsg']						
+
+					}
+					
+				}
+			}
+
+			Vue.component('aaa',A)
+
+			new Vue({
+				el:'#box',
+				data:{
+					word:'再见'
+				}
+				/*components:{
+					'aaa':A
+				}*/
+
+			})
+
+		/*	var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					word:'hello world',
+					component:'aaa'
+				},
+				components:{
+					'aaa':{
+						template:"#a",
+						data(){
+							return {
+								msg:'hello'
+							}
+						},
+						components:{
+							'bbb':{
+								props:['bMsg'],
+								template:'#b'
+							}
+						}
+					}
+				}
+			})*/
+			
+
+
+			
+		</script>
+	</body>
+</html>

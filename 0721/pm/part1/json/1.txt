@@ -1,0 +1,46 @@
+hello world
+
+
+//1.react的起源和发展.....兴起，火
+2.优点：高性能高效率  
+3.适用的不适用 为什么
+
+4.优势  虚拟dom  jsx 单向数据流  组件化
+
+属性和状态 有什么作用  区别  如何获取，如何更改  更改之后会怎么样
+
+生命周期  各种钩子函数
+
+init   
+
+getDefaultProps 
+getInitialState 
+componentWillMount 
+render
+componentDidMount
+
+
+update
+
+componentWillReceviceProps （props）
+shouldComponentUpdate 
+componentWillUpdate
+render
+componentDidUpdate
+
+
+componentWillUnmount 擦屁股
+
+组件通信....
+
+
+mixin
+
+
+webpack 
+
+es6   router
+
+flux  redux
+
+react-redux

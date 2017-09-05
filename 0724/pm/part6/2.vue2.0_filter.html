@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<aaa></aaa>
+		</div>
+		<template id="a">
+			<div>		
+				{{obj}}
+				
+				{{str | uppercase}}
+				<input type="text" v-model="str" />
+				{{new_str}}
+				<hr />
+				{{number | currency('￥')}}<br/>
+				{{money}}
+			</div>
+		</template>
+		<script src="../../base/vue2.4.1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//2.0里对象或者数组直接显示的话已经可以了不会出现【object object】
+			
+			//2.0里将自带的过滤器已经全部废弃了
+			
+			//2.0里过滤器传参不是空格了，而且类似于函数传参
+			
+			//可以去自定义，也可以使用计算属性
+			
+			
+			Vue.filter("uppercase",function(val){
+				console.log(val)
+				return (val+'').toUpperCase()
+			})
+			
+			Vue.filter("currency",function(num,symbol){
+				var symbol=symbol||"$"
+				var _int=num.toFixed(2).split(".")[0]
+				var _float='.'+num.toFixed(2).split(".")[1]				
+				var str = _int.split('').reverse().join('')				
+				_int=''
+				for(var i =0;i<str.length;i++){
+					if(i%3==0&&i!=0){
+						_int+=','
+					}
+					_int+=str[i]
+				}				
+				_int = _int.split('').reverse().join('')
+				return symbol+_int+_float
+			})
+			
+			Vue.component('aaa',{
+				template:"#a",
+				data(){
+					return {
+						number:123456789.98765,
+						obj:{x:1,y:2},
+						str:'hello'
+					}
+				},
+				computed:{
+					new_str:function(){
+						return this.str.toUpperCase()
+					},
+					money:function(){
+						var symbol=symbol||"$"
+						var _int=this.number.toFixed(2).split(".")[0]
+						var _float='.'+this.number.toFixed(2).split(".")[1]				
+						var str = _int.split('').reverse().join('')				
+						_int=''
+						for(var i =0;i<str.length;i++){
+							if(i%3==0&&i!=0){
+								_int+=','
+							}
+							_int+=str[i]
+						}				
+						_int = _int.split('').reverse().join('')
+						return symbol+_int+_float
+					}
+				}
+			})
+			
+			var vm=new Vue({
+				el:"#box",
+				data:{
+					a:1
+				}
+			})
+		</script>
+	</body>
+</html>

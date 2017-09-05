@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<aaa></aaa>
+		</div>
+		<template id="a">
+			<div>			
+				<p class="my-p">我是A组件</p>
+				<input type="text" v-model="msg" />
+				<p class="my-p">msg:{{msg}}</p>
+				<button @click="destroy">destroy</button>
+			</div>
+		</template>
+		<script src="../../base/vue2.4.1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			
+			
+			var A={
+				template:"#a",
+				data(){
+					return {
+						msg:'hello'
+					}
+				},
+				methods:{
+					destroy(){
+						this.$destroy()
+					}
+				},
+				beforeCreate(){
+					console.log("beforeCreate:在这个时候，数据、事件等等都还没有挂载")
+					console.log(this)
+				},
+				created(){
+					var myp=document.getElementsByClassName("my-p")[0]					
+					console.log('created:数据已经挂上了',myp)					
+				},
+				beforeMount(){// componentWillMount
+					//渲染之前最后一次更改数据的机会，在这里更改不会引起组件的重新渲染
+					//初始化执行一些数据的获取
+					this.msg+="!"
+					console.log(this.$el)
+				},
+				mounted(){//componentDidMount
+					//可以操作真实的dom    在这里实例化各种东西   
+					console.log('mounted：可以操作真实的dom')
+				},
+				beforeUpdate(){//componentWillUpdate 
+					console.log('beforeUpdate：数据刚刚被更改' ,this.msg)
+				},
+				updated(){//componentDidUpdate
+					//执行 swiper.update()  iscroll.refresh
+					console.log("updated:数据、dom等等一切都更新完了")
+				},
+				beforeDestroy(){//comonentWillUnmount  擦屁股的 善后
+					console.log('beforeDestory')
+				},
+				destroyed(){//擦屁股的 善后 清除计时器、取消自己写的事件绑定..
+					console.log('destroyed')
+				}
+				
+			}
+			
+			//beforeMount  获取数据，
+			//mounted  获取数据，初始化的去执行一些事情
+			//updated
+			
+			var vm=new Vue({
+				
+				data:{
+					a:1
+				},
+				components:{
+					'aaa':A
+				}
+			}).$mount('#box')
+		</script>
+	</body>
+</html>

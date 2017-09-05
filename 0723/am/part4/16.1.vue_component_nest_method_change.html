@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>		
+		<div id="box">	
+			<h1>这是根组件</h1>
+			<hr />
+			<aaa></aaa>
+			
+		</div>
+		
+		<template id="a">
+			<div>
+				<h3>这是A组件</h3>
+				<p>这是儿子说的话：{{sonword}}</p>
+				<hr />
+				<bbb :get-son-word="getSonWord" :getson-word="getSonWord"></bbb>
+				<bbb :get-son-word="getSonWord" :getson-word="getSonWord"></bbb>
+			</div>
+		</template>
+		
+		<template id="b">
+			<div>
+				<h4>这是B组件</h4>
+				<button @click="getSonWord('abc')">tell father</button>
+				<button @click="getsonWord('哈哈')">tell father</button>
+			</div>
+		</template>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			
+			//子组件调用父组件的方法并传递数据
+			var B=Vue.extend({
+				template:"#b",
+				props:['getSonWord','getsonWord'],
+				data(){
+					return {
+						
+					}
+				},
+				methods:{
+				}
+			})
+			
+			var A=Vue.extend({
+				template:"#a",
+				data(){
+					return {
+						sonword:''
+					}
+				},
+				methods:{
+					getSonWord:function(word){
+						this.sonword=word
+					}
+				},
+				components:{
+					'bbb':B
+				}
+			})
+			
+			
+			
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					word:'hello',
+					component:'aaa'
+				},
+				methods:{
+					
+				},
+				components:{
+					'aaa':A
+				}
+			})
+			
+
+
+			
+		</script>
+	</body>
+</html>

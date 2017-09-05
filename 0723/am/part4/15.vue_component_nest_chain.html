@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>		
+		<div id="box">	
+			<h1>这是根组件---<button @click="get">get</button></h1>
+			<p>这是A的数据：{{amsg}}，这是B的数据:{{bmsg}}</p>
+			<hr />
+			<aaa></aaa>
+		</div>
+		
+		<template id="a">
+			<div class="box1">
+				<h3>这是A组件- <button @click="get">get</button></h3>
+				<p>这是root的数据：{{rootmsg}}，这是B的数据:{{bmsg}}</p>
+				<hr />
+				<bbb ></bbb>
+			</div>
+		</template>
+		
+		<template id="b">
+			<div>
+				<h4>这是B组件--<button @click="get">get</button></h4>
+				<p>这是root的数据：{{rootmsg}}，这是A的数据:{{amsg}}</p>
+			</div>
+		</template>
+
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//组件和实例都拥有这样的几个属性，_uid：组件或实例的标识性属性，保证都不一样
+			//$root  可以得到根实例的viewmodel
+			//$parent 可以得到父组件或父实例的viewmodel
+			//$children 数组  可以得到子组件的viewmodel
+			
+			var B = {
+				template:"#b",
+				data(){
+					return {
+						msg:"b-msg",
+						rootmsg:null,
+						amsg:null
+					}
+				},
+				methods:{
+					get(){
+						console.log(this)
+						this.rootmsg=this.$root.msg
+						this.amsg=this.$parent.msg
+					}
+				}
+			}
+			
+			
+			
+			var A = {
+				template:"#a",
+				data(){
+					return {
+						msg:"a-msg",
+						rootmsg:null,
+						bmsg:null
+					}
+				},
+				methods:{
+					get(){
+						this.rootmsg=this.$parent.msg
+//						this.rootmsg=this.$root.msg
+
+						this.bmsg=this.$children[0].msg
+					}
+				},
+				components:{'bbb':B}
+			}
+			
+			
+			var vm = new Vue({
+				el:"#box",
+				data:{
+					msg:"root-msg",
+					amsg:null,
+					bmsg:null
+				},
+				methods:{
+					get(){
+						this.amsg=this.$children[0].msg
+						this.bmsg=this.$children[0].$children[0].msg
+					}
+				},
+				components:{'aaa':A}
+			})
+
+
+			
+		</script>
+	</body>
+</html>

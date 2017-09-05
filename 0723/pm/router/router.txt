@@ -1,0 +1,82 @@
+
+
+1.vue里实现路由依靠的是vue-router模块
+
+2.在1.0里我们使用的是0.7.13   
+
+
+3.具体步骤
+引入vue-router文件
+
+进行了a标签的改造
+
+
+<a v-link={path:'/home'}>home</a>
+
+
+
+
+设定路由要切换的位置
+
+<router-view></router-view>
+
+
+实例化路由
+
+var router=new VueRouter()
+
+
+配置路由表
+
+
+router.map({
+	'home':{
+		component:Home,
+		subRoutes:{
+			'news':{
+				components:News
+			}
+		}
+	}
+})
+
+
+配置重定向和主路由
+
+router.redirect({
+	'/':'/home',
+	'*':'/home'
+})
+
+
+启动router
+
+router.start()
+
+
+
+设置路由需要接收参数：
+
+router.map({
+	'home':{
+		component:Home,
+		subRoutes:{
+			'news':{
+				components:News
+			}
+		}
+	}，
+	"detail/:paramname":{
+		component:Detail,
+	}
+})
+
+
+接收参数：
+
+在路由组件里会将$route放入this指针指向的对象身上，
+
+this.$route.path   //路径
+this.$route.params  //路由参数
+this.$route.query   //查询字符串   queryString解析后的对象
+

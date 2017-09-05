@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<aaa></aaa>
+		</div>
+		<template id="a">
+			<div>			
+				<p class="my-p">我是A组件</p>
+				<input type="text" v-model="new_fruit" @keyup.enter="addFruit" />
+				<ul>
+					<li v-for="(fruit,index) in fruits" >{{fruit}}--{{index}}</li>
+				</ul>
+				
+				
+				<ul>
+					<li v-for="(value,key) in allen" >{{key}}--{{value}}</li>
+				</ul>
+				
+				<bbb v-for="x in 4" :key="x"></bbb>
+				
+			</div>
+		</template>
+		<script src="../base/vue2.0.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//2.0里v-for数据的时候，默认可以有相同的数据
+			//2.0里不会取出了一些隐式的变量 $index $key
+			//2.0里循环出来的参数  先是item 后是index 和1.0是相反
+			//2.0里track-by被替换成了v-bind:key(循环组件的时候)
+			
+
+			
+			var A={
+				template:"#a",
+				data(){
+					return {
+						new_fruit:'',
+						fruits:[
+							"apple","banana","orange"
+						],
+						allen:{
+							name:'二狗',
+							age:18,
+							sex:'male'
+						}
+					}
+				},
+				methods:{
+					addFruit(){
+						this.fruits.push(this.new_fruit)
+					}
+				},
+				components:{
+					'bbb':{
+						template:"<h4>bbbbbbbbbbbbb</h4>"
+					}
+				}
+			}
+			
+			var vm=new Vue({
+				
+				data:{
+					a:1
+				},
+				components:{
+					'aaa':A
+				}
+			}).$mount('#box')
+		</script>
+	</body>
+</html>

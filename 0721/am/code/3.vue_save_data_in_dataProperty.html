@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			str:{{str}}<br />
+			number:{{number}}<br />
+			bool:{{bool}}<br />
+			und:{{und?'':'undefined'}}<br />
+			non:{{non?'':'null'}}<br />
+			arr:{{arr}}<br />
+			fn:{{fn}}<br />
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//vm什么类型的数据都能挂载
+			new Vue({
+				el:"#box",
+				data:{
+					str:'hello',
+					number:1,
+					bool:true,
+					und:undefined,
+					non:null,
+					arr:[1,2,3],
+					fn:()=>{}
+				}
+			})
+		</script>
+	</body>
+</html>

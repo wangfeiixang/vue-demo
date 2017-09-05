@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+		<style>
+			.btn-box{
+				display: flex;
+				justify-content: space-around;
+			}
+			.btn-box button.btn{
+				width: 50%;
+			}
+		</style>
+	</head>
+	<style>
+		
+	</style>
+	<body>
+		<div id="root">
+			{{title}}
+			<m-header :title="title"></m-header>	
+			<router-view></router-view>
+			<m-footer></m-footer>	
+
+		</div>
+			
+		<template id="header">
+			<header class="bar bar-nav">
+
+                <h1 class="title">{{title}}</h1>
+            </header>
+		</template>
+		
+		<template id="footer">
+			  <nav class="bar bar-tab">
+                <a :class="['tab-item external',$route.path=='/main'?'active':'' ]" v-link="{path:'main'}">
+                    <span class="icon icon-home"></span>
+                    <span class="tab-label">首页</span>
+                </a>
+                <a :class="['tab-item external',$route.path=='/menu/a'?'active':'']" v-link="{path:'/menu/a'}">
+                    <span class="icon icon-menu"></span>
+                    <span class="tab-label">分类</span>
+                </a>
+                <a :class="['tab-item external',$route.path=='/news'?'active':'']" v-link="{path:'/news'}">
+                    <span class="icon icon-mine"></span>
+                    <span class="tab-label">新闻</span>
+                </a>
+            </nav>
+		</template>
+		
+		
+		<template id="main">
+			<div class="content">
+				main
+				<button @click="click">main</button>
+			</div>			
+		</template>
+
+		<template id="menu">
+			<div class="content">
+				<p class="btn-box">
+					
+				<a v-link="{path:'/menu/a'}" class="button button-fill  button-success">国内</a>
+				<a v-link="{path:'/menu/b'}" class="button button-fill  button-danger">国外</a>
+				</p>
+				<router-view></router-view>
+				
+			</div>	
+		</template>		
+		
+		<template id="news">
+			<div class="content">
+				news
+			</div>	
+		</template>
+
+		<template id="a">
+			<div class="card" v-for="msg in msg" track-by="$index">
+				<div class="card-header">
+					<a class="title" v-text="msg.title" v-link="{path:'/detail/'+msg.id+'/'+msg.classid+''}"></a>
+				</div>
+				
+			    <div class="card-content">
+			      <div class="card-content-inner" v-text="msg.description"></div>
+			    </div>
+			</div>	
+		</template>	
+
+		<template id="b">
+			<div class="card" v-for="msg in msg" track-by="$index">
+				<div class="card-header">
+					<a class="title" v-text="msg.title" v-link="{path:'/detail/'+msg.id+'/'+msg.classid+''}"></a>				
+				</div>				
+			    <div class="card-content">
+			      <div class="card-content-inner" v-text="msg.description"></div>
+			    </div>
+			</div>		
+		</template>	
+
+		<template id="detail">
+			<div class="content">
+				<p>{{msg.title}}</p>
+				<p>{{msg.description}}</p>
+			</div>
+		</template>		
+
+		<!-- <template id="app">
+			<m-header></m-header>
+			<m-footer></m-footer>
+		</template>	 -->
+			
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-router.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+
+			//1.引入vue-router 
+			//2.创建路由工具 ，实例化路由
+			//3.配置路由表
+			//4.启动路由
+			//5.配置重定向
+			//6.改造a标签 v-link
+			//7.设定路由切换的位置 router-view	.
+			
+			var _mixin = {
+
+				methods:{//.$route.path
+					click(){
+						console.log(this.$route.path)
+					}
+				}				
+
+			}
+
+			var mHeader = {
+				template:'#header',
+				props:['title'],
+				mixins:[_mixin]
+			}
+
+			var mFooter = {
+				template:'#footer',
+			}
+
+			var Main = {
+				template:'#main',
+				mixins:[_mixin]
+				
+			}
+
+			var Menu = {
+				template:'#menu',
+				mixins:[_mixin]
+			}
+
+			var Detail = {
+				template:'#detail',
+				data(){
+					return{
+						msg:[]
+					}
+				},
+				ready(){
+
+					//console.log(this.$route.params.classid)
+
+					if ( this.$route.params.classid==1 ) {
+
+						var that = this;
+						this.$http.get('./json/inside.json')
+							.then((res)=>{
+								res.data.forEach( function(val, i) {
+									if ( val.id== that.$route.params.id) {
+										that.msg = val
+									} 
+								});
+								//console.log(res.data)
+							},(res)=>{
+								console.log('错误')
+							})								
+
+
+					} else {
+						if  (this.$route.params.classid==2 ) {
+							var that = this;
+							this.$http.get('./json/outside.json')
+								.then((res)=>{
+										res.data.forEach( function(val, i) {
+										if ( val.id== that.$route.params.id) {
+											that.msg = val
+											} 
+										});
+
+								},(res)=>{
+									console.log('错误')
+								})								
+						} 
+					}
+
+				}
+			}			
+
+			var A = {
+				template:'#a',
+				data(){
+					return{
+						msg:[],
+					}
+				},
+				ready(){
+
+
+
+					var that = this;
+					this.$http.get('./json/inside.json')
+						.then((res)=>{
+							that.msg = res.data;
+							//localStorage("id",)
+							console.log(that.msg)
+							console.log('A：重新加载')
+						},(res)=>{
+							console.log('错误')
+						})
+
+					console.log(this.msg)
+				}
+			}
+
+			var B = {
+				template:'#b',
+				data(){
+					return{
+						msg:[],
+					}
+				},
+				ready(){
+
+					var that = this;
+					this.$http.get('./json/outside.json')
+						.then((res)=>{
+							that.msg = res.data;
+							//console.log(res.data)
+							console.log('B：重新加载')
+						},(res)=>{
+							console.log('错误')
+						})
+				}				
+			}									
+
+			var News = {
+				template:'#news',
+			}
+
+			var App = {
+				data(){
+					return{
+						title:'哈哈哈哈'
+					}
+				},
+				components:{
+					'm-header':mHeader,
+					'm-footer':mFooter
+				}
+			}
+
+			var router = new VueRouter()
+
+			router.map({
+				'main':{component:Main},
+				'news':{component:News},
+				'detail/:id/:classid':{component:Detail},
+				'menu':{
+					component:Menu,
+					subRoutes:{
+						'a':{component:A},
+						'b':{component:B}
+					}
+				}
+			})
+
+			router.redirect({
+				'/':"/main",
+				'*':'/main'
+			})			
+
+			router.start(App,'#root')
+
+
+
+
+
+
+
+
+
+
+
+			
+		/*	var Main = Vue.extend({
+				template:"#main"
+			})
+			
+			var News = Vue.extend({
+				template:"#news"
+			})
+			
+			var Header = Vue.extend({
+				props:['title'],
+				template:"#header"
+			})
+			
+			var Footer = Vue.extend({
+				template:"#footer",
+			})
+			
+			var App = Vue.extend({
+				data(){
+					return {
+						title:'夹肉饼'
+					}
+				},
+				components:{
+					'm-header':Header,
+					'm-footer':Footer
+				}
+			})
+			
+			//路由小工具
+			var router = new VueRouter()
+			
+			//配置路由表
+			
+			router.map({
+				'main':{component:Main},
+				'news':{component:News}
+			})
+			
+			router.start(App,'#root')
+			
+			router.redirect({
+				'/':"/main",
+				'*':'/main'
+			})
+			*/
+			//1.0 router
+			
+			
+			
+		</script>
+	</body>
+</html>

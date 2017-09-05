@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div class="test">
+         	{{word | uppercase | limitBy 1}}
+        </div>
+        <script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+            var myVue = new Vue({
+                el: ".test",
+                data: {
+                   word:'hello'
+                },
+                methods: {
+                   
+                }
+            })
+        </script>
+		
+		
+		
+	</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="box">
+			<!-- <input @keyup.enter="addNew" type="text" v-model="new_list" />
+			<input @keyup.37="addNew" type="text" v-model="new_list" />
+			<input @keyup.space="addNew" type="text" v-model="new_list" /> -->
+			<input @keyup.down="addNew" type="text" v-model="new_list" />
+			<input @keyup.up="addNew" type="text" v-model="new_list" />
+			<input @keyup.right="addNew" type="text" v-model="new_list" />
+			<input @keyup.left="addNew" type="text" v-model="new_list" />
+			<input @keyup.esc="addNew" type="text" v-model="new_list" />
+			<input @keyup.left="addNew" type="text" v-model="new_list" />
+			<ul>
+				<li v-for="fruit in lists" track-by="$index">{{fruit}}</li>
+			</ul>
+		</div>
+		
+		<script type="text/javascript">
+			Vue.directive('on').keyCodes.dian= 192
+			var vm=new Vue({
+				el:"#box",
+				data:{
+					new_list:'',
+					lists:[
+						"apple",
+						"banana",
+						"orange"
+					]
+				},
+				methods:{
+					addNew:function(){
+						this.lists.push(this.new_list)
+					}
+				}
+			})
+			
+			
+			
+		</script>
+	</body>
+</html>

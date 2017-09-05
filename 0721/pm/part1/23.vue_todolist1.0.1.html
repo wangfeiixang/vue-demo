@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	</head>
+	<style>
+		.main{
+			width: 600px;
+			padding: 50px 0px 0px;
+			margin:  0 auto;
+		}
+		.list-box{
+			margin-top: 20px;
+		}
+		.list-box li p{
+			margin: 0;
+		}
+		.list-box li{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		.circle{
+			display: inline-block;
+			width: 14px;
+			height: 14px;
+			border-radius: 50%;
+			border:1px solid #ccc
+		}
+		.circle.finished{
+			background: deepskyblue;
+		}
+		
+		.list-box li.finished{
+			opacity: 0.5;
+		}
+		.list-box li.finished span:nth-child(3){
+			text-decoration: line-through;
+		}
+	</style>
+	<body>
+		
+		<div class="main">
+			<input  type="text" class="form-control" v-model="word" @keyup.enter="add"/>
+			
+			<ul class="list-group list-box">
+				
+				<li :class="{'finished':data.isFinished}" v-show='data.isShow' class="list-group-item " v-for="data in data" >
+					<p>
+						<span  :class="['circle',data.isFinished?'finished':'']"></span>
+						<input type="checkbox"  v-model="data.isFinished" />
+						<span >{{data.title}}</span>{{data.isFinished}}
+					</p>
+					<span @click="remove(data.id)" class="glyphicon glyphicon-remove"></span>
+				</li>
+				<hr>
+				<button @click="changeColor('all')" :class="{'btn-success':active=='all'}" class="btn btn-default">全部</button>
+				<button @click="changeColor('finish')" :class="{'btn-success':active=='finish'}" class="btn btn-default">已完成</button>
+				<button @click="changeColor('unfinish')" :class="{'btn-success':active=='unfinish'}" class="btn btn-default">未完成</button>
+				
+			</ul>
+			
+		</div>
+		
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+				//v-show=
+
+				new Vue({
+
+					el:".main",
+					data:{
+						data:[],
+						word:'',
+						_id:null,
+						_title:'',
+						active:'all'
+					},
+					methods:{
+
+						add(){
+							//console.log(this._id)
+							console.log(this.active)
+							console.log(this._title)
+
+							this._id++;
+
+							this._title = this.word;
+
+							this.data.push({
+
+								id:this._id,
+								isFinished:false,
+								isShow:true,
+								title:this._title
+							})
+
+							this.data.forEach( function(value, index) {
+								//console.log(value)
+								value.isShow = true
+							});
+
+							this.active = "all";
+							this._title = '';
+
+							//console.log(this._id)
+						},
+						
+						remove(id){
+							//console.log(id)
+							for(var i=0;i<this.data.length;i++){
+
+								if (id==this.data[i].id) {
+
+									console.log(this.data[i].isFinished)
+
+									if ( this.data[i].isFinished || confirm("确定删除吗？") ){
+
+										this.data.splice(i,1);
+									} 
+									break;
+								} 
+							}
+						},
+						changeColor(type){
+							this.active = type;
+
+							this.data.forEach( function(value, i) {
+
+								//console.log(value.isShow) 
+								switch(type){
+									case 'all': value.isShow = true;break;
+									case 'finish': value.isShow = value.isFinished;break;
+									case 'unfinish': value.isShow = !value.isFinished;break;
+								}								
+								
+							});
+							
+
+						}
+						
+					},
+
+					ready(){
+
+						var that = this;
+
+						this.$http.get('./json/todos.json',{
+
+						}).then((res)=>{
+
+							//console.log(res.data)
+							that.data = res.data;
+							that._id = res.data.length;
+
+							//console.log(that.data.isFinished)	
+
+						},(res)=>{
+							console.log('失败',res)
+
+						})
+
+					}
+
+				})	
+
+					
+			
+		</script>
+	</body>
+</html>

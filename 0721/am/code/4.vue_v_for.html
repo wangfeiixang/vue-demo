@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+				<li v-for="fruit in arr">{{$index+1}}.{{fruit}}</li>
+			</ul>
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//vue里循环数据使用v-for 
+			
+			new Vue({
+				el:"#box",
+				data:{
+					arr:['apple','banana','orange']
+				}
+			})
+		</script>
+	</body>
+</html>

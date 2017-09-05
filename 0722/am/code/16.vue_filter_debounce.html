@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<p>重新点击会重置时间</p>
+		<div class="test">
+           <button @click="alert | debounce 2000">alert</button>
+        </div>
+        <script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+            var myVue = new Vue({
+                el: ".test",
+                data: {
+                   
+                },
+                methods: {
+                    alert:function(){
+                    	alert(1)
+                    }
+                }
+            })
+        </script>
+		
+		
+		
+	</body>
+</html>

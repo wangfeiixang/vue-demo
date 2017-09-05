@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<p>{{'abc' | capitalize}}</p>
+			<p>{{'abc' | uppercase}}</p>
+			<p>{{'ABC' | lowercase}}</p>
+			<p>{{12345.6789 | currency '￥'}}</p>
+		</div>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//vue自带有一些过滤器，使用的方法就是通过管道符.传参用空格
+			var vm=new Vue({
+				el:"#box",
+				data:{
+					
+				},
+				methods:{
+					
+				}
+			})
+			
+			
+			
+			
+		</script>
+		
+	</body>
+</html>

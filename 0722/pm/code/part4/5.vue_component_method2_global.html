@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		
+		<div id="box">
+			<hello></hello>
+		</div>
+		
+		
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			
+			//简写的方式来注册一个全局组件
+			
+//			var App = Vue.extend()
+			var App={
+				template:"<h3>{{msg}}</h3>",
+				data:function(){
+					return {
+						msg:'hello vuejs'
+					}
+				}
+			}
+			Vue.component('hello',App)
+			
+			new Vue({
+				el:"#box"
+			})
+			
+			
+			
+			
+			
+
+			
+		</script>
+	</body>
+</html>

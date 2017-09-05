@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		
+	</style>
+	<body>
+		<div id="box">
+			<input type="text" v-model="message" />
+			<p>{{message}}</p>
+			<p>{{*message}}</p>
+			<p>{{{message}}}</p>
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//表达式内加上* ，只是第一次能使用值
+			//三花括号可以解析html标签
+			
+			
+			new Vue({
+				el:"#box",
+				data:{
+					message:'hello'
+				}
+			})
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		p{
+			width:200px;
+			height: 200px;
+			background: red;
+			/*opacity: 1;*/
+		}
+		/*abc-enter-active 在进入的过程中*/
+		/*abc-leave-active 在出去的过程中*/
+		.abc-enter-active,.abc-leave-active{
+			transition:  all 2s;
+		}
+		
+		
+		
+		/*//进入之前*/
+		.abc-enter,.abc-leave-to{
+			/*opacity: 0;*/
+			width: 0;
+			height: 0;
+		}
+		
+		/*进来之后*/
+		/*.abc-enter-to{
+			width:400px;
+			height: 400px;
+		}*/
+		
+	</style>
+	<body>
+		<div id="box">
+			<aaa></aaa>
+		</div>
+		
+		<template id="a">
+			<div>
+				<button @click="isShow=!isShow">toggle</button>
+				
+				<transition name="abc">
+					<p v-show="isShow">我会显示和隐藏</p>
+				</transition>
+				
+				
+			</div>
+		</template>
+		
+		<script src="../base/vue2.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//2.0里transition变成了一个组件
+			//transition组件的作用：在某些时刻给里面的东东加上某些类名
+			//所以类名有的样式需要自己定义
+			var A={
+				template:"#a",
+				data(){
+					return {
+						isShow:false
+					}	
+				},
+				methods:{
+					
+				}
+			}
+			
+			Vue.component('aaa',A)
+			
+			
+			
+			
+			var vm=new Vue({				
+				data:{
+					a:1
+				}
+			}).$mount('#box')
+		</script>
+	</body>
+</html>

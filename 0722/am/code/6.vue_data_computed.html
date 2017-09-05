@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<input type="number" v-model="a.value" number/>
+			<p v-text="a.value"></p>
+			<p v-text="b"></p>
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		
+			
+			var vm = new Vue({
+				el:"#box",
+				data:{
+					a:{
+						value:1
+					}
+				},
+				computed:{
+					b:function(){
+						return this.a.value*2
+					}
+				}
+			})
+			
+			
+			
+		</script>
+		
+	</body>
+</html>

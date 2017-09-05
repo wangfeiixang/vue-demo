@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.demo{
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
+	</style>
+	<body>
+		
+		<div id="box" >
+			<div class="demo" v-bgcolor="'yellow'" v-drag="1000"></div>
+			<div class="demo" v-bgcolor="'red'" v-drag="2000"></div>
+			<div class="demo" v-bgcolor="'blue'"  v-drag="2001"></div>
+		</div>
+		
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			/*Vue.directive("bgcolor",function(val){
+				console.log(this)
+				this.el.style.background=val
+			})*/
+
+			Vue.directive('bgcolor',function(val){
+
+				this.el.style.background = val
+
+			})
+
+
+			Vue.directive('drag',function(zindex){
+
+				console.log(this.el)
+
+				this.el.style.position='absolute'
+
+				this.el.style.zIndex=zindex||0
+
+				var dx,dy;
+
+				var that = this;
+
+				this.el.onmousedown = function(e){
+
+					var mx = e.clientX;
+					var my = e.clientY;
+					var ox = e.offsetX;
+					var oy = e.offsetY;
+
+					document.onmousemove = function(e){
+
+						var _mx = e.clientX-ox;
+						var _my = e.clientY-oy;
+						that.el.style.left = _mx+'px';
+						that.el.style.top = _my+'px';
+						/*var _mx=e.clientX-ox
+						var _my=e.clientY-oy
+						that.el.style.left=_mx+'px'
+						that.el.style.top=_my+'px'	*/					
+					}
+
+
+
+					document.onmouseup = function(e){
+						document.onmouseup = null;
+						document.onmousemove = null;
+					}
+				}
+
+			})
+
+
+			
+			/*Vue.directive("drag",function(zindex){
+				this.el.style.position="absolute"
+				this.el.style.zIndex=zindex
+				
+				var dx,dy;
+				var that=this
+				this.el.onmousedown=function(e){
+					var mx = e.clientX;
+					var my = e.clientY;					
+					var ox=e.offsetX;
+					var oy=e.offsetY;					
+					document.onmousemove=function(e){
+						var _mx=e.clientX-ox
+						var _my=e.clientY-oy
+						
+						that.el.style.left=_mx+'px'
+						that.el.style.top=_my+'px'
+						
+					}
+					document.onmouseup=function(e){
+						document.onmouseup=null
+						document.onmousemove=null						
+					}
+				}
+				
+			})*/
+			
+			
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					word:'hello world',
+					color:'green'
+				}
+			})
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<input type="text" v-model="a" number/>
+			<p>a :<span v-text="a"></span></p>
+			<input type="text" v-model="c.value" number/>
+			<p>c :<span v-text="c.value"></span></p>
+			<p>b :<span v-text="b"></span></p>
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		
+
+			
+			//可以使用vm.$watch或者直接在实例配置选项里添加watch，就可以检测到一个值的变化，根据它的变化来做其他的一些事情   
+			
+			var vm = new Vue({
+				el:"#box",
+				data:{
+					a:1,
+					b:2,
+					c:{
+						value:1
+					}
+				},
+				watch:{
+					a:function(val,old){
+						this.b=val*2
+					},
+//					'c.value':function(val,old){
+//						console.log('updated')
+//						this.b=this.c.value*2
+//					},
+					c:{
+						handler:function(val,old){
+							this.b=val.value*2
+						},
+						deep:true
+					}
+				}
+				
+			})
+
+//			var unwatch=vm.$watch("a",function(val,oldval){
+//				this.b=val*2
+//			})
+//			
+//			setTimeout(function(){
+//				unwatch()
+//			},2000)
+			
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			[v-cloak]{
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			
+			<p v-text="word"></p>
+			<p v-cloak>{{word}}</p>
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//v-text绑定数据之后，当数据加载出来之后就会把绑定的dom的innerHTML给替换
+			var vm=new Vue({
+				el:"#box",//要放选择器哟
+				data:{
+					word:'hello'
+				},
+				methods:{
+					
+				}
+				
+			})
+			
+			
+			
+		</script>
+	</body>
+</html>

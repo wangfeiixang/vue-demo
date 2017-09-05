@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<div @click="click2">
+				<button @click.stop="click1">add</button>
+			</div>
+			
+			<form @submit.prevent="submit" action="" >
+				
+				<input type="submit" value="提交"/>
+			</form>
+			
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:"#box",
+				data:{
+					username:'',
+					isShow:true
+				},
+				methods:{
+					click1:function(ev){
+						alert(1)
+					},
+					click2:function(ev){
+						alert(2)
+					},
+					submit(){
+						alert('submit')
+					}
+					
+				}
+			})
+		</script>
+	</body>
+</html>

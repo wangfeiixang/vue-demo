@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>		
+		<div id="box">	
+			<h1>这是根组件</h1>
+			<hr />
+			<aaa></aaa>
+			
+		</div>
+		
+		<template id="a">
+			<div>
+				<h3>这是A组件</h3>	
+				<button @click="get">get</button><br />
+				{{bmsgs}}
+				<hr />	
+				<bbb v-ref:first></bbb>
+				<hr />	
+				<bbb v-ref:second></bbb>
+				<hr />	
+				<bbb v-ref:third></bbb>
+	
+			</div>
+		</template>
+		
+		<template id="b">
+			<div>
+				<h4>这是B组件</h4>
+				<p>{{msg}} - <input type="text" v-model="msg" /></p>
+			</div>
+		</template>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//父组件可以通过v-ref：name来给子组件做标记，获取的方法：this.$refs.name
+			
+			var B=Vue.extend({
+				template:"#b",
+				data(){
+					return {
+						msg:'hello'
+					}
+				},
+				methods:{
+					
+				}
+			})
+			
+			var A=Vue.extend({
+				template:"#a",
+				data:function(){
+					return {
+						bmsgs:[]
+					}
+				},
+				methods:{
+					get(){
+						console.log(this.$refs.first.msg)
+						this.bmsgs=[]
+						this.bmsgs.push(this.$refs.second.msg)
+						this.bmsgs.push(this.$refs.first.msg)
+						this.bmsgs.push(this.$refs.third.msg)
+					}
+				},
+				components:{
+					'bbb':B
+				}
+			})
+			
+			
+			
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					word:'hello',
+					component:'aaa'
+				},
+				methods:{
+					
+				},
+				components:{
+					'aaa':A
+				}
+			})
+			
+
+
+			
+		</script>
+	</body>
+</html>

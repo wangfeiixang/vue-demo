@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<aaa></aaa>
+		</div>
+		
+		<template id="a">
+			<div>
+				<p>这是A组件</p>	
+				<p>这是我儿子给我传递的信息：{{sonmsg}}</p>
+				<hr />
+				<bbb :tell-daddy="listenSon"></bbb>
+			</div>
+		</template>
+		<template id="b">
+			<div>
+				<p>这是B组件</p>
+				<!--<input @keyup="tellDaddy(msg)" type="text" v-model="msg" />-->
+				<input type="text" v-model="msg" />
+				<p>这是我自己的信息：{{msg}}</p>
+			</div>
+		</template>
+		<script src="../base/vue2.0.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//2.0里数据传递后不能进行双向控制.sync已经被废弃了
+			//2.0里如果要做双向控制，我们可以将改变父组件数据的方法设置在父组件身上（本来数据就是父组件的）。然后把这个方法传递给子组件，当子组件改变数据的时候去调用
+			var B={
+				template:"#b",
+				props:['tellDaddy'],
+				data(){
+					return {
+						msg:'hello daddy'
+					}
+				},
+				watch:{
+					'msg':function(val,oldval){
+						this.tellDaddy(val)
+					}
+				},
+				mounted(){
+					this.tellDaddy(this.msg)
+				},
+				updated(){
+//					this.tellDaddy(this.msg)
+				}
+			}
+
+			var A={
+				template:"#a",
+				data(){
+					return {
+					    sonmsg:null
+					}
+				},				
+				components:{
+					'bbb':B
+				},
+				methods:{
+					listenSon:function(word){
+						this.sonmsg=word
+					}
+				}
+			}
+			
+			Vue.component('aaa',A)
+						
+			var vm=new Vue({				
+				data:{
+					a:1
+				}
+			}).$mount('#box')
+			
+			
+			
+		</script>
+	</body>
+</html>

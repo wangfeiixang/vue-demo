@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../base/animate.css" />
+	</head>
+	<style>
+		p{
+			width:200px;
+			height: 200px;
+			background: red;
+			opacity: 1;
+		}
+		
+	</style>
+	<body>
+		<div id="box">
+			<aaa></aaa>
+		</div>
+		
+		<template id="a">
+			<div>
+				<button @click="isShow=!isShow">toggle</button>
+				
+				<transition enter-active-class="animated bounceIn"  leave-active-class="animated fadeOutRight">
+					<p v-show=isShow></p>
+				</transition>
+				
+				
+			</div>
+		</template>
+		
+		<script src="../base/vue2.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//2.0里transition变成了一个组件
+			
+			var A={
+				template:"#a",
+				data(){
+					return {
+						isShow:false
+					}	
+				},
+				methods:{
+					
+				}
+			}
+			
+			Vue.component('aaa',A)
+			
+			
+			
+			
+			var vm=new Vue({				
+				data:{
+					a:1
+				}
+			}).$mount('#box')
+		</script>
+	</body>
+</html>

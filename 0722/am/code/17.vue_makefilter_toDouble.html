@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div id="box">
+           {{6 | toDouble}}
+           {{12 | toDouble}}
+        </div>
+        <script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+        	//注册一个全局过滤器 回调接受需要过滤的数据，必须得返回过滤后的数据
+        	Vue.filter('toDouble',function(val){
+        		return val>=10?val:'0'+val
+        	})
+        	
+            var vm = new Vue({
+                el: "#box",
+                data: {
+                   
+                },
+                methods: {
+                  
+                }
+            })
+        </script>
+		
+		
+		
+	</body>
+</html>

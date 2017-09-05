@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<aaa></aaa>
+		</div>
+		
+		<template id="a">
+			<div>
+				<p>这是A组件</p>
+				<p>这是B的数据-》：{{sonmsg}}</p>
+				<button @click="get">get sonmsg</button>
+				<hr />
+				<bbb ref="son"></bbb>
+			</div>
+		</template>
+		<template id="b">
+			<div>
+				<p>这是B组件</p>	
+				<input type="text" v-model="msg"/>
+				<p>这是我自己的数据：{{msg}}</p>
+			</div>
+		</template>
+		<script src="../base/vue2.0.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//2.0里我们可以通过ref属性来对子组件做标记 ..  ref="a"    this.$refs.a
+			
+			
+			var B={
+				template:"#b",
+				
+				data(){
+					return {
+						msg:'hello vuejs'
+					}
+				},
+				
+				methods:{
+					
+				}
+			}
+
+			var A={
+				template:"#a",
+				data(){
+					return {
+						sonmsg:''
+					}
+				},
+				methods:{
+					get(){
+						this.sonmsg=this.$refs.son.msg
+					}
+				},
+				components:{
+					'bbb':B
+				},
+				mounted(){
+					this.get()
+				}
+			}
+			
+			Vue.component('aaa',A)
+			
+			
+			
+			
+			var vm=new Vue({				
+				data:{
+					a:1
+				}
+			}).$mount('#box')
+		</script>
+	</body>
+</html>

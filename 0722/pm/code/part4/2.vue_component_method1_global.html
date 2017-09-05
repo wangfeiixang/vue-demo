@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		<div id="box">
+
+			<!-- <aaa></aaa> -->
+		</div>
+		
+		<div id="box1">
+			<aaa></aaa>
+		</div>
+		
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//1.创建组件
+			//2.任何组件的外部必须有一个实例
+
+
+		/*	var App = Vue.extend({
+				template:"<h3>哈哈哈哈--{{data}}</h3>",
+				data(){
+					return{
+						data:"你好"
+					}
+				}
+			})*/
+
+			/*var App = {
+				template:"<h3>哈哈哈哈--{{data}}</h3>",
+				data(){
+					return{
+						data:"你好"
+					}
+				}
+			}	*/		
+
+			//Vue.component('aaa',App) 
+
+			/*new Vue({
+
+				el:'#box',
+				components:{
+					'aaa':{
+								template:"<h3>哈哈哈哈--{{data}}</h3>",
+								data(){
+									return{
+										data:"你好"
+									}
+								}
+							}			
+				}
+
+			})
+*/
+			Vue.component('aaa',{
+				template:"<h3>哈哈哈哈--{{data}}</h3>",
+				data(){
+					return{
+						data:"你好"
+					}
+				}				
+			}) 
+
+			new Vue({
+
+				el:'#box1',
+				
+
+
+			})			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+			
+			/*var App= Vue.extend({
+				template:"<h4>hello world</h4>"
+			})
+			
+			//2.全局注册 可以在任意的实例里使用
+			
+			Vue.component('hello',App)
+			
+			var vm = new Vue({
+				el:"#box"
+			})
+			
+			var vm1 = new Vue({
+				el:"#box1"
+			})*/
+
+		</script>
+	</body>
+</html>

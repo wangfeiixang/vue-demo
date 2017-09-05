@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<input type="text" v-model="xing" />
+			<p>姓：{{xing}}</p>
+			<p>名：{{ming}}</p>
+			<p>姓名：{{xingming}}</p>
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//我们尽量不要在模板中写过多的逻辑，我们可以利用计算属性来得到一个崭新的、与其他数据相关的数据
+			var vm=new Vue({
+				el:"#box",//要放选择器哟
+				data:{
+					xing:'王',
+					ming:'二狗'
+				},
+				computed:{
+					xingming:function(){
+						var arr=[this.xing,this.ming]
+						//arr=Math.random()>0.5?arr:arr.reverse();
+						arr = Math.random()>0.5?arr:arr.reverse();
+						console.log(arr.join())
+						return arr.join()
+					}
+				}
+				
+			})
+
+			
+			
+			
+			
+		</script>
+	</body>
+</html>

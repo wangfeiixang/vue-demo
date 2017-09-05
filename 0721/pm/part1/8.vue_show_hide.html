@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<button @click="toggle">toggle</button>
+			<button @click="isShow=!isShow">toggle</button>
+			<hr />
+			<template v-if="isShow">
+				<p @click="add">if-我会显示和隐藏</p>
+				<p >if-我会显示和隐藏</p>
+				<p >if-我会显示和隐藏</p>
+				<p >if-我会显示和隐藏</p>
+				<p >if-我会显示和隐藏</p>
+			</template>
+			
+			<p v-show="isShow">show-我会显示和隐藏</p>
+			<p v-else>哈哈哈哈</p>
+			<hr/>
+
+			<button @click="toggle">切换</button>
+
+			<template v-if="isShow">
+				<p>显示</p>
+				<p>显示</p>
+				<p>显示</p>
+				<p>显示</p>
+			</template>
+				<p v-show="isShow">我是show</p>
+				<p v-else>我是else</p>
+			<template v-else>
+				<p>隐藏</p>
+				<p>隐藏</p>
+				<p>隐藏</p>
+				<p>隐藏</p>
+			</template>
+			
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//vue里有v-if和v-show能通过一条数据来控制某个dom显示和隐藏，如果有对立关系的标签的话，就使用v-else
+			//如果同时显示和隐藏的标签过多的时候，使用template
+			var vm = new Vue({
+						el:"#box",
+						data:{
+							isShow:true
+						},
+						methods:{
+							toggle(){
+								this.isShow=!this.isShow
+								console.log(this)
+							},
+							add(){
+								console.log(this)
+							}
+						}
+					})
+		</script>
+	</body>
+</html>

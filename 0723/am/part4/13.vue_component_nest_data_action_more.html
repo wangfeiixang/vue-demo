@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>		
+		<div id="box">	
+			<h1>这是根组件</h1>
+			
+			<hr />
+			<aaa></aaa>
+			
+		</div>
+		
+		<template id="a">
+			<div>
+				<h3>这是A组件---{{msg}}</h3>
+				<input type="text" v-model="msg" />
+				<hr />
+				<bbb :msg.sync="msg"></bbb>
+				<bbb :msg.once="msg"></bbb>
+			</div>
+		</template>
+		
+		<template id="b">
+			<div>
+				<h4>这是B组件---{{msg}}</h4>
+				<input type="text" v-model="msg" />
+			</div>
+		</template>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//在传递数据的时候，可以给v-bind指令添加modifiers，
+			//默认情况下是单向绑定，父组件的值改变，子组件的数据也会改变，子组件改变这条数据，父组件不会改变
+			//.sync 双向绑定，父组件更改后，两个组件的数据都会变，子组件更改数据后，两个组件的数据也都会改变
+			//.once 一次绑定   只能接受第一次过来的数据，后面父组件再怎么更改，子组件的数据也不会改变
+			
+			var B=Vue.extend({
+				template:"#b",
+				props:['msg']
+			})
+			
+			var A=Vue.extend({
+				template:"#a",
+				data(){
+					return {
+						msg:"hello"
+					}
+				},
+				components:{
+					'bbb':B
+				}
+			})
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					word:'hello world',
+					component:'aaa'
+				},
+				components:{
+					'aaa':A
+				}
+			})
+			
+
+
+			
+		</script>
+	</body>
+</html>

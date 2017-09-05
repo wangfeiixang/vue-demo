@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.border{
+			border: 1px solid blue;
+		}
+		.small{
+			width: 100px;
+			height: 100px;			
+		}
+		.big{
+			width: 200px;
+			height: 200px;
+		}
+		.red{
+			background: red;
+		}
+	</style>
+	<body>
+		<div id="box">
+			<div :class="{big:isBig}"></div>
+			
+			<div :class="{big:isBig,red:isRed,border:!isRed}"></div>
+			
+			<div :class="json"></div>
+			
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:"#box",
+				data:{
+					isBig:true,
+					isRed:false,
+					json:{
+						border:true,
+						small:true
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

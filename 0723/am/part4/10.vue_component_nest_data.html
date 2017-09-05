@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>		
+		<div id="box">	
+			<aaa></aaa>
+		</div>
+		
+		<template id="a">
+			<p>这是A组件</p>
+			<hr />
+			<bbb text="hello world"></bbb>
+		</template>
+		
+		<template id="b">
+			<p>这是B组件</p>
+			<p>{{text}}</p>
+		</template>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//父组件可以将自己的数据传递给子组件，使用绑定标签属性的方法给子组件进行绑定
+			//在子组件内部通过props数组的方式来接受数据，接受之后就可以使用
+			
+			
+			var vm= new Vue({
+				el:"#box",
+				components:{
+					'aaa':{
+						template:"#a",
+						components:{
+							'bbb':{
+								props:['text'],
+								template:"#b"
+							}
+						}
+					}
+				}
+			})
+			
+
+
+			
+		</script>
+	</body>
+</html>

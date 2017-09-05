@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		
+		<div id="box">
+			
+			<aaa></aaa>
+			
+			<aaa></aaa>
+			<aaa></aaa>
+			<aaa></aaa>
+			<aaa></aaa>
+			
+		</div>
+
+		
+		
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//定义组件  全局组件意味在任何根组件（Vue实例）里都能使用
+			//给组件挂载数据的方法与Vue实例的方法是不一样的，需要是一个函数然后去return出一个对象，数据就挂载在这个对象上
+			//组件可能会在多个地方使用，保证每一个组件的实例都拥有独立的数据
+			var App=Vue.extend({
+				template:"<h3 @click='alert'>{{msg}}</h3>",
+				data:function(){
+					return {
+						msg:'hello vuejs'
+					}
+				},
+				methods:{
+					alert:function(){
+						alert(1)
+					}
+				}
+			})
+			
+			//注册组件(起小名) 第一个参数是要用的小名，第二个参数是组件的构造器
+			
+			Vue.component('aaa',App)
+			
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					word:'hello world'
+				}
+			})
+
+			
+		</script>
+	</body>
+</html>

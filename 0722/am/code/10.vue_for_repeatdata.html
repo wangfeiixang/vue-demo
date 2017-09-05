@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<input type="text" v-model="new_food" @keyup.enter="addNew"  />
+			<ul>
+				<li v-for="food in foods" track-by="$index">{{food}}</li>
+			</ul>
+			<ul>
+				<li v-for="arr in arr" track-by="$index">{{arr}}</li>
+			</ul>			
+		</div>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//在1.0里 循环数据的时候，如果数据里有重复的数据，会报警告，并且循环不出来
+			//加一个track-by等于某一个永远不会相同的值，一般情况下来一个$index
+			var vm = new Vue({
+				el:"#box",
+				data:{
+					new_food:'',
+					foods:[
+						"meat","cola"
+					],
+					arr:[11,22,33,44]
+				},
+				methods:{
+					addNew(){
+						this.foods.push(this.new_food)
+					}
+				},
+				/*computed:{
+					arr:function(val,old){
+						//console.log(1)
+					}
+				}*/
+			})
+
+			Vue.set(vm.arr,1,666)
+			//vm.$set(vm.arr,1,"哈哈")
+			//vm.arr.splice(1,1,"哈哈")
+			//vm.arr[1]="哈哈"
+
+			console.log(vm.arr)
+			
+			
+			
+			
+		</script>
+		
+	</body>
+</html>

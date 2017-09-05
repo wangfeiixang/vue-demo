@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">		
+			<button @click="handleClick(1,$event)">click</button>
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//当不写（）的时候，会自动传入事件对象，否则的话需要手动传入$event
+			new Vue({
+				el:"#box",
+				data:{
+					isShow:true
+				},
+				methods:{
+					handleClick:function(num,e){
+						console.log(e)
+						console.log(this)
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

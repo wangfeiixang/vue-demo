@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			
+			<p>{{word}}</p>
+		</div>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var vm=new Vue({
+				data:{
+					word:''
+				}
+			})
+			vm.$mount("#box")//当Vue实例没有el属性时，则该实例尚没有挂载到某个dom中；
+			vm.$set("word",'hello666')
+		</script>
+	</body>
+</html>

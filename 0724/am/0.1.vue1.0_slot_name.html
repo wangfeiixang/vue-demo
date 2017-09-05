@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<aaa>
+				<p slot="myp">哈哈哈</p>
+				<bbb slot="bbb"></bbb>
+				<bbb slot="bbb"></bbb>
+				<bbb slot="bbb"></bbb>
+			</aaa>
+		</div>
+		<template id="a">
+			<div>	
+				<slot name="myp"></slot>
+				<p>这是A组件</p> 
+				
+				<slot name="bbb"></slot>
+				
+			</div>
+		</template>
+		
+		<template id="b">
+			<div>	
+				<p>这是B组件</p>
+			</div>
+		</template>
+		<script src="../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//我们在使用组件的时候可能会在组件标签内部写入一些节点
+			//这个时候默认会被组件的模板给替换掉
+			//如果需要在模板里使用这些节点，我们就在模板里任意的位置写上slot标签
+			
+			Vue.component("bbb",{
+				template:"#b"
+			})
+			
+			Vue.component("aaa",{
+				template:"#a"
+			})
+			
+			var vm=new Vue({
+				el:"#box",
+				data:{
+					a:1
+				}
+			})
+		</script>
+	</body>
+</html>

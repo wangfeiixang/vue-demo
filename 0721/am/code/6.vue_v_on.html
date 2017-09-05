@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<button v-on:click="handleclick">click</button>
+			<button @dblclick="handledblclick(2,$event)">doubleclick</button>
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//vue 绑定事件v-on指令，：后面加上要绑定的事件名
+			//绑定的事件执行的方法要挂载在methods里面
+			//如果不传参数，默认接受事件对象，传参数的话，需要传入$event
+			
+			//简写，v-on:->@
+			new Vue({
+				el:"#box",
+				data:{},
+				methods:{
+					handleclick:function(e){
+						console.log(e)
+					},
+					handledblclick:function(num,e){
+						console.log(num)
+						console.log(e)					
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

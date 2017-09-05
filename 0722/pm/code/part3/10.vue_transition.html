@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.demo{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #333;
+			background: red;
+			overflow: hidden;
+			opacity: 1;
+		}
+		
+		.abc-transition {
+		  transition: all 3s ease;
+		}
+		
+		/*入场之前和出场之后的效果*/
+		.abc-enter,.abc-leave{
+			opacity: 0;
+		}
+		
+	</style>
+	<body>
+		
+		<div id="box">
+			<button @click="isShow=!isShow">toggle</button>
+			<p transition="abc" v-show="isShow" class="demo">我会显示和隐藏</p>			
+		</div>
+		
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					isShow:true
+				},
+				methods:{
+					
+				}
+			})
+
+		</script>
+	</body>
+</html>

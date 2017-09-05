@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		
+		
+		<div id="box">			
+			<hello></hello>
+		</div>
+		<hr />
+		<div id="box1">			
+			<hello></hello>
+		</div>
+		<hr />
+		
+		
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var App=Vue.extend({
+				template:"<h1 @click='alert'>{{msg}}</h1>",
+				data:function(){
+					return {
+						msg:'hello world'
+					}		
+				},
+				methods:{
+					alert(){
+						this.msg='hello everyone'
+					}
+				}
+				
+			})
+			
+//			Vue.component('aaa',App)
+			
+			//想要做成局部组件的话，需要在注册的时候在Vue实例或者其他的父组件里去注册
+			
+			new Vue({
+				el:"#box",
+				components:{
+					'hello':App
+				}
+			})
+
+			new Vue({
+				el:"#box1",
+				components:{
+					'hello':App
+				}
+			})
+		</script>
+	</body>
+</html>

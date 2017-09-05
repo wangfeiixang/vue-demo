@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		
+	</style>
+	<body>
+		<div id="box">
+			<p v-show="isLogin">欢迎{{username}}回来</p>
+			<form v-else v-on:submit.prevent="login">
+				<input type="text" v-model="username" />
+				<input type="password" v-model="password" />
+				<input type="submit" value="提交"/>
+			</form>
+			
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:"#box",
+				data:{
+					username:'',
+					password:'',
+					isLogin:false
+				},
+				methods:{
+					login:function(){
+						var that =this;
+
+						this.$http.get('http://datainfo.duapp.com/shopdata/userinfo.php',{
+
+							params:{
+								status:'login',
+								userID:this.username,
+								password:this.password								
+
+							}
+
+						}).then((res)=>{
+							console.log(res.data)
+						})
+
+
+						/*this.$http.post('http://datainfo.duapp.com/shopdata/userinfo.php',{
+							status:'login',
+							userID:this.username,
+							password:this.password
+						},{emulateJSON:true}).then((res)=>{
+							console.log(res.data)
+							if(res.data.userID){
+								that.isLogin=true
+							}
+						})	*/					
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div id="box">
+			<input type="text" v-model="color" />
+			<input type="text" v-model="fontSize" />
+			<p v-red="color">hello vuejs</p>
+			<p v-big="fontSize">哈哈</p>
+		</div>
+		
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			Vue.directive('red',{
+				bind: function () {//一次性的，高耗的任务
+					
+					this.el.onclick=function(){
+						 var inner=this.innerHTML
+			    		this.innerHTML=inner.split("").reverse().join('')
+					}
+				},
+				  update: function (newValue, oldValue) {//搞和数据相关的东西
+				  	//每次值改变的时候都会执行
+				  	//初次绑定的时候也会执行
+				   	this.el.style.color=newValue
+				  },
+				  unbind: function () {
+				  	console.log('unbind')
+				  	this.el.onclick=null
+				    // 清理工作
+				    // 例如，删除 bind() 添加的事件监听器
+				  }
+			})
+
+
+			Vue.directive('big',{
+				bind(){
+					//console.log('bind');
+					this.el.onclick = function(){
+
+						// console.log(this)
+						this.innerHTML = '你好';
+
+						var inner = this.innerHTML;
+
+						var that = this;
+
+						setTimeout(function(){
+
+							this.innerHTML = inner.split("").reverse().join('')
+
+						}.bind(this),500)
+					}
+				},
+				update(n,o){
+
+					this.el.style.fontSize = n+'px'
+
+				}
+
+			})
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					word:'hello world',
+					color:'blue',
+					fontSize:20
+				}
+			})
+			
+			/*setTimeout(function(){
+				vm.$destroy()
+			},1000)*/
+		</script>
+	</body>
+</html>

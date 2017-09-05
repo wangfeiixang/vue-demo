@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		
+	</style>
+	<body>
+		<div id="box">
+			
+			<button @click="getData">getdata</button>
+			
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var vm = new Vue({
+				el:"#box",
+				data:{
+					
+				},
+				methods:{
+					getData:function(){
+						this.$http.get('./json/1.txt')
+							.then((res)=>{
+								console.log(res.data)
+							},(res)=>{
+								console.log(res)
+							})
+						/*this.$http.get('./json/1.txt')
+							.then((res)=>{
+								console.log('success',res.data)
+							},(res)=>{
+								console.log(res)
+							})*/
+					}
+				}
+			})
+			
+			
+			
+
+		</script>
+	</body>
+</html>

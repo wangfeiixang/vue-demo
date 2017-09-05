@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>	
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<aaa></aaa>
+		</div>
+		
+		<template id="a">
+			<div>
+				<p>这是A组件</p>
+				<p>这是儿子告诉我的话：{{sonword}}</p>
+				<hr />
+				<bbb @tell-father="listenSon"></bbb>
+			</div>
+		</template>
+		<template id="b">
+			<div>
+				<p>这是B组件</p>					
+				<input type="text"  v-model="word" />
+				<p>这是我的数据：{{word}}</p>
+			</div>
+		</template>
+		<script src="../base/vue2.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//2.0子组件主动向父组件发送数据...
+			var B={
+				template:"#b",
+				data(){
+					return {
+						word:'hello'
+					}
+				},
+				watch:{
+					word:function(){
+						this.$emit('tell-father',this.word)
+					}
+				},
+				mounted(){
+					this.$emit('tell-father',this.word)
+				}
+			}
+
+			var A={
+				template:"#a",
+				data(){
+					return {
+						sonword:''
+					}
+				},
+				methods:{
+					listenSon(word){
+						this.sonword=word
+					}
+				},
+				components:{
+					'bbb':B
+				}
+			}
+			
+			Vue.component('aaa',A)
+			
+			
+			
+			
+			var vm=new Vue({				
+				data:{
+					a:1
+				}
+			}).$mount('#box')
+		</script>
+	</body>
+</html>

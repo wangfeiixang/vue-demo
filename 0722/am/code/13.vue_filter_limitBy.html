@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<p>limitBy：</p>
+			<p>{{arr | limitBy 4 3}}</p>
+			<p>{{str | limitBy 2 2}}</p>
+			<p>{{num | limitBy 2 2}}</p>
+			<p>{{json | limitBy 1}}</p>
+			
+		</div>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var vm=new Vue({
+				el:"#box",
+				data:{
+					arr:[1,2,3,4,5,6,7,8,9],
+					str:'abcdefg',
+					num:123456789,
+					json:{
+						x:1,y:2,z:3
+					}
+				},
+				methods:{
+					
+				}
+			})
+		</script>
+		
+	</body>
+</html>

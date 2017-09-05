@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>		
+		<div id="box">	
+			<h1>这是根组件</h1>
+			<hr />
+			<aaa></aaa>
+			<bbb></bbb>
+		</div>
+		
+		<template id="a">
+			<div>
+				<button @click="alert">click</button>
+				
+			</div>
+		</template>
+		<template id="b">
+			<div>
+				<button @click="alert">click</button>
+			</div>
+		</template>
+		
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//我们可以将一个对象放上很多很多组件常用的方法，这个就是一个mixin，我们在组件里可以通过mixins属性来混入这个对象里的方法，mixins属性的值是一个数组，里面放上要混入的mixin
+			
+			
+			
+			var _mixin={
+				methods:{
+					alert(){
+						alert(this.msg)
+					}
+				}
+			}
+
+			var A=Vue.extend({
+				mixins:[_mixin],
+				template:"#a",
+				data(){
+					return {
+						msg:'a-msg'
+					}
+				}				
+			})
+			
+			Vue.component('aaa',A)
+			
+			var B=Vue.extend({
+				mixins:[_mixin],
+				template:"#b",
+				data(){
+					return {
+						msg:'b-msg'
+					}
+				}
+			})
+			
+			Vue.component('bbb',B)
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					word:'hello',
+				},
+				methods:{
+					
+				},
+				components:{
+					
+				}
+			})
+			
+
+
+			
+		</script>
+	</body>
+</html>

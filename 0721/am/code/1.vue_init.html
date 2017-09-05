@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="box">
+			<input type="text" v-model='food'>
+			<!-- <p v-bind='data'></p> -->
+			{{data}}--{{food}}
+			<ul>
+				<li v-for='(k,v) in foods'>{{k+1}}--{{v}}--{{index}}</li>
+			</ul>
+			<button v-on:click='click'>单击</button>
+			<button @click='click'>单击2</button>
+			<button @dblclick='dbclick'>双击</button>
+			<button @click='add'>添加</button>
+		</div>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+//			vue 开发者  尤雨溪  14/3   去年后半年 1.0  2.0
+			//mvvm
+			
+			//new Vue得到的是一个根实例   el，在哪里起作用  data挂载舒红菊
+			/*var vm = new Vue({
+				el:'.box',
+				data:{
+					msg:'hello world',
+					sub:'哈哈'
+				}
+			})
+			console.log(vm.sub)*/
+			var vm = new Vue({
+				el:'.box',
+				data:{
+					food:'',
+					data:'你好',
+					foods:['鸡肉','鸭肉','猪肉']
+				},
+				methods:{
+					click:function(e){
+						console.log(e)
+						console.log("我是单击事件");
+					},
+					dbclick:function(e){
+						console.log('我是双击事件')
+					},
+					add:function(){
+						this.foods.push(this.food)
+					},
+
+				}
+			})
+
+			console.log(vm)
+			
+		</script>
+	</body>
+</html>

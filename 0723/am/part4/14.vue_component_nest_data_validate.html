@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>		
+		<div id="box">	
+			<h1>这是根组件--{{str}}</h1>
+			<example 
+				:prop-a="55" 
+				:prop-m="{x:1}" 
+				:prop-b="str" 
+				:prop-c="0"
+				:prop-e.sync="str"
+				:prop-f="16"
+				:prop-g="obj"
+			></example>
+			
+		</div>
+		
+		<template id="example">
+			<div>
+				<h3>这是example组件</h3>
+				<p>propA:{{propA*2}}</p>
+				<p>propM:{{propM}}</p>
+				<p>propB:{{propB}}</p>
+				<p>propC:{{propC}}</p>
+				<p>propE:{{propE}}</p>
+				<p>propF:{{propF}}</p>
+				<p>propG:{{propG}}</p>
+				<input type="text" v-model="propE">
+			</div>
+		</template>
+	
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//为什么可以验证？
+			//因为我们的组件可能会在多个地方使用，为了避免使用者传入不能使用的数据，故而做了验证，不通过验证则不能使用，并且会抛出错误
+
+
+			//如果将props写成对象的格式，我们就可以对接收到的参数进行验证和处理
+			//如果值直接为null或者值对应的对象里type为null,则表示接受任何数据不做验证
+			//type可以为String或者Number、Object、Array，这样就可以验证数据必须是某一张类型的
+			//type可以为一个数组，里面放上多个类型的颜色，可以让我们验证数据可以是某些类型中的一种
+			//初始类型设置默认值用default属性
+			//引用类型如 Array、Object设置默认值需要使用default方法来return 出默认值
+			
+			//twoWay：true标示数据的传递必须是双向的
+			
+			//validator方法可以自定义验证过程，接受到value形参就是传递过来的数据，通过验证后可以返回一个布尔值，true代表验证通过
+			
+			
+			//可以通过coerce方法来对我们的数据进行在接收后使用前进行处理
+			
+			
+			//验证数据类型、设置必传、设置默认值、设置是否双向、自定义验证、进行转换
+			
+			Vue.component('example', {
+				
+			  template:"#example",
+			  props: {
+//			       基础类型检测 （`null` 意思是任何类型都可以）
+			    propA: Number,
+//			    // 多种类型 (1.0.21+)
+			    propM: [String, Number],//不靠谱
+//			    // 必需且是字符串
+			    propB: {
+			      type: String,
+			      required: true
+			    },
+//			    // 数字，有默认值
+			    propC: {
+			      type: Number,
+			      default: 100
+			    },
+//			    // 对象/数组的默认值应当由一个函数返回
+//			    propD: {
+//			      type: Object,
+//			      default: function () {
+//			        return { msg: 'hello' }
+//			      }
+//			    },
+//			    // 指定这个 prop 为双向绑定
+//			    // 如果绑定类型不对将抛出一条警告
+			    propE: {
+			      twoWay: true
+			    },
+//			    // 自定义验证函数
+			    propF: {
+			      validator: function (value) { //返回布尔值，如果为true 验证成功
+			      	console.log(value)
+			        return value > 10
+			      }
+			    },
+//			    // 转换函数（1.0.12 新增）
+//			    // 在设置值之前转换值
+			    propG: {
+			      coerce: function (val) {
+			        return JSON.stringify(val)
+			      }
+			   }
+			  }
+			})
+			
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					number:1,
+					str:'hello',
+					arr:[1,2,3],
+					bool:false,
+					obj:{x:1},
+					fn:function(){}
+				}
+			})
+			
+
+
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+	</head>
+	<style>
+		
+	</style>
+	<body>
+		<div id="root">
+			<m-header :title="title"></m-header>
+			
+			<router-view></router-view>
+						
+			<m-footer></m-footer>
+		</div>
+			
+		<template id="header">
+			<header class="bar bar-nav">
+                <h1 class="title" v-text="title"></h1>
+            </header>
+		</template>
+		
+		<template id="footer">
+			 <nav class="bar bar-tab">
+                <a :class="['tab-item external',$route.path=='/main'?'active':'']" href="#/main">
+                    <span class="icon icon-home"></span>
+                    <span class="tab-label">首页</span>
+                </a>
+                <a :class="['tab-item external',$route.path=='/news/inside'?'active':'']" href="#/news">
+                    <span class="icon icon-browser"></span>
+                    <span class="tab-label">新闻</span>
+                </a>
+            </nav>
+		</template>
+		
+		
+		<template id="main">
+			<div class="content">
+				main
+			</div>			
+		</template>
+		
+		<template id="news">
+			<div class="content">
+				<div class="buttons-tab">
+				    <a v-link="{path:'/news/inside'}" class="tab-link button">国内</a>
+				    <a v-link="{path:'/news/outside'}" class="tab-link button">国际</a>
+				</div>
+				<router-view></router-view>
+			</div>	
+		</template>
+		
+		<template id="inside">
+			<div class="card" v-for="_new in news">
+			    <div class="card-header"><a :href="'#detail/'+_new.id+'/'+_new.classid"  v-text="_new.title"></a></div>
+			    <div class="card-content">
+			      <div class="card-content-inner" v-text="_new.description"></div>
+			    </div>
+			  </div>
+		</template>
+		<template id="outside">
+			<div class="card" v-for="_new in news">
+			    <div class="card-header"><a :href="'#detail/'+_new.id+'/'+_new.classid"  v-text="_new.title"></a></div>
+			    <div class="card-content">
+			      <div class="card-content-inner" v-text="_new.description"></div>
+			    </div>
+			  </div>
+		</template>
+		
+		<template id="detail">
+			<div class="content">
+				<p>{{title}}</p>
+				<p>{{description}}</p>
+			</div>			
+		</template>
+			
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-router.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var Main = Vue.extend({
+				template:"#main"
+			})
+			
+			var News = Vue.extend({
+				template:"#news"
+			})
+			
+			var Detail = Vue.extend({
+				template:"#detail",
+				data:function(){
+					return {
+						title:'',
+						description:''
+					}
+				},
+				ready(){
+					var that = this
+					var classtype=this.$route.params.classid==1?'inside':'outside'
+					this.$http.get("./json/"+classtype+".json")
+						.then((res)=>{
+							res.data.forEach((item,i)=>{
+								if(item.id==that.$route.params.id){
+									that.title=item.title
+									that.description=item.description
+								}
+							})
+						})
+				}
+			})
+			
+			var _mixin={
+				data:function(){
+					return {
+						news:[]
+					}
+				},
+				ready(){
+					var that=this;
+					this.$http.get("./json/"+this.$options.type+".json")
+						.then((res)=>{
+							that.news=res.data
+						})
+				}
+			}
+			
+			var InsideNews = Vue.extend({
+				template:"#inside",
+				mixins:[_mixin],
+				type:'inside'
+			})
+			
+			var OutsideNews = Vue.extend({
+				template:"#outside",
+				mixins:[_mixin],
+				type:'outside'
+			})
+			
+			var Header = Vue.extend({
+				props:['title'],
+				template:"#header"
+			})
+			
+			var Footer = Vue.extend({
+				template:"#footer",
+			})
+			
+			var App = Vue.extend({
+				data(){
+					return {
+						title:'夹肉饼'
+					}
+				},
+				components:{
+					'm-header':Header,
+					'm-footer':Footer
+				}
+			})
+			
+			//路由小工具
+			var router = new VueRouter()
+			
+			//配置路由表
+			
+			router.map({
+				'main':{component:Main},
+				'detail/:id/:classid':{component:Detail},
+				'news':{
+					component:News,
+					subRoutes:{
+						'inside':{component:InsideNews},
+						'outside':{component:OutsideNews}
+					}
+				}
+			})
+			
+			router.start(App,'#root')
+			
+			router.redirect({
+				'/':"/main",
+//				'*':'/main',
+				'/news':'/news/inside'
+			})
+			
+			//1.0 router
+			
+			//1.引入vue-router 
+			//2.创建路由工具 ，实例化路由
+			//3.配置路由表
+			//4.启动路由
+			//5.配置重定向
+			//6.改造a标签 v-link
+			//7.设定路由切换的位置 router-view
+
+//			 2.0
+
+		</script>
+	</body>
+</html>

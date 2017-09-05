@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="test">
+         
+         	<ul>
+         		<li v-for="user in users | orderBy 'id'">{{user.id}}--{{user.name}}--{{user.age}}</li>
+         	</ul>
+         	<hr />
+         	<ul>
+         		<li v-for="user in users | orderBy 'id' -1">{{user.id}}--{{user.name}}--{{user.age}}</li>
+         	</ul>
+         	<hr />
+         	<ul>
+         		<li v-for="user in users | orderBy 'age' 'name'">{{user.id}}--{{user.name}}--{{user.age}}</li>
+         	</ul>
+         </div>
+        <script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+	 	    <script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el: ".test",
+                data: {
+                   users:[
+                   	{id:2,name:'xiaofang',age:16},
+                   	{id:1,name:'xiaoming',age:13},
+                   	{id:3,name:'ergouzi',age:19},
+                   	{id:4,name:'dagouzi',age:19}
+                   ],
+                   numbers:[4,8,6,1,5,7,9]
+                },
+                methods: {
+                  	orderFn:function(a,b){
+                  		return Math.random()>0.5?1:-1;
+                  	}
+                }
+            })
+            
+          
+            
+        </script>
+		
+		
+		
+	</body>
+</html>

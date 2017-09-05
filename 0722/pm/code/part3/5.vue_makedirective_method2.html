@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.demo{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #333;
+		}
+	</style>
+	<body>
+		
+		<div id="box">
+			<input type="text" v-model="bgcolor" />
+			<div class="demo" v-bgcolor="bgcolor"></div>
+		</div>
+		
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			Vue.directive("bgcolor",{
+				  bind: function () {
+				    // 准备工作
+				    // 例如，添加事件处理器或只需要运行一次的高耗任务
+				    console.log('bind....')
+				  },
+				  update: function (newValue, oldValue) {
+				    // 值更新时的工作
+				    // 也会以初始值为参数调用一次
+				    console.log('update',newValue,oldValue)
+				    this.el.style.background=newValue
+				  },
+				  unbind: function () {
+				    // 清理工作
+				    // 例如，删除 bind() 添加的事件监听器
+				    console.log('unbind...')
+				  }
+			})
+			
+			
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					word:'hello world',
+					bgcolor:'red'
+				}
+			})
+
+		</script>
+	</body>
+</html>

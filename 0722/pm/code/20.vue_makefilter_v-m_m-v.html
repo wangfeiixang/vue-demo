@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		
+		<div id="box">
+			<input type="text" v-model="money | money" number/>
+           <p>{{money}}</p>
+        </div>
+        
+        
+        <script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+        
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+
+        <script type="text/javascript">
+    		
+    		Vue.filter("money",{
+    			  read: function(val) {//操控模型-》视图的过程
+    			  	console.log(val)
+				   return '$'+val.toFixed(2)
+				  },
+				  write: function(val, oldVal) {//操控视图-》模型
+				  	console.log(val)
+				  	console.log(oldVal)
+				  	var number= +val.replace(/[^\d.]/g,'')
+				    return isNaN(number)?0:parseFloat(number.toFixed(2))
+				  }
+    		})
+    		
+            var vm = new Vue({
+                el: "#box",
+                data: {
+                   money:1234.56
+                },
+                methods: {
+                  
+                }
+            })
+        </script>
+		
+		
+		
+	</body>
+</html>

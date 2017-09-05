@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style>
+		.demo{
+			width: 100px;
+			height: 100px;
+			border: 1px solid #333;
+		}
+	</style>
+	<body>
+		
+		<div id="box">
+			color:<input type="text"  v-model="style.bgcolor" /><br />
+			width:<input type="text"  v-model="style.width" number/><br />
+			height:<input type="text"  v-model="style.height" number/><br />
+			
+			<div class="demo" v-demo="style"></div>
+			
+		</div>
+		
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//deep:true可以让我们update检测传入的对象数据的键值对变化也去执行
+			
+			Vue.directive("demo",{
+				deep:true,
+				update:function(val){
+					console.log(val)
+					this.el.style.background=val.bgcolor
+					this.el.style.width=val.width+'px'
+					this.el.style.height=val.height+'px'
+				}
+			})
+			
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					style:{
+						bgcolor:'red',
+						width:100,
+						height:100
+					}
+				}
+			})
+
+		</script>
+	</body>
+</html>

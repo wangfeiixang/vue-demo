@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+	</head>
+	<style>
+		.main{
+			width: 600px;
+			padding: 50px 0px 0px;
+			margin:  0 auto;
+		}
+		.list-box{
+			margin-top: 20px;
+		}
+		.list-box li p{
+			margin: 0;
+		}
+		.list-box li{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		
+		.circle{
+			display: inline-block;
+			width: 14px;
+			height: 14px;
+			border-radius: 50%;
+			border:1px solid #ccc
+		}
+		.circle.finished{
+			background: deepskyblue;
+		}
+		
+		.list-box li.finished{
+			opacity: 0.5;
+		}
+		.list-box li.finished span:nth-child(3){
+			text-decoration: line-through;
+		}
+	</style>
+	<body>
+		
+		<div class="main">
+			<input @keyup.enter="addNew" v-model="title" type="text" class="form-control" />
+			
+			<ul class="list-group list-box">
+				
+				<li v-show="todo.isShow" :class="{finished:todo.isFinished}" class="list-group-item" v-for="todo in todos">
+					<p>
+						<span @click="todo.isFinished=!todo.isFinished" :class="['circle',todo.isFinished?'finished':'']" ></span>
+						<input type="checkbox" v-model="todo.isFinished" />
+						<span>{{todo.title}}</span>
+					</p>
+					<span @click="remove(todo.id)" class="glyphicon glyphicon-remove"></span>
+				</li>
+				
+			</ul>
+			
+			<button @click="changeStyle('all')" :class="{'btn-success':active=='all'}" class="btn btn-default">全部</button>
+			<button @click="changeStyle('finished')" :class="{'btn-success':active=='finished'}" class="btn btn-default">已完成</button>
+			<button @click="changeStyle('unfinished')" :class="{'btn-success':active=='unfinished'}" class="btn btn-default">未完成</button>
+			
+		</div>
+		
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">			
+			
+			new Vue({
+				
+				el:".main",
+				
+				data:{
+					_id:null,
+					todos:[],
+					title:'',
+					active:'all'
+				},
+				methods:{
+					addNew(){
+						console.log(this.active)
+						if(this._id===null){return ;}
+						this._id++;
+						this.todos.push({
+							id:this._id,
+							title:this.title,
+							isFinished:false,
+							isShow:true
+						})
+						this.active='all'
+						this.title=''
+						this.todos.forEach((todo,i)=>{							
+								todo.isShow=true;
+						})
+					},
+					remove(id){
+						for(var i =0;i<this.todos.length;i++){
+							if(this.todos[i].id==id){
+								if(this.todos[i].isFinished||(!this.todos[i].isFinished&&confirm('该事件还未完成，确定要删除吗？'))){
+									this.todos.splice(i,1)
+								}
+								break;
+							}
+						}
+					},
+					changeStyle(active){
+						this.active=active;
+						
+						this.todos.forEach((todo,i)=>{
+							if(active=='all'){
+								todo.isShow=true;
+								return ;
+							}
+							if(active=='finished'){
+								todo.isShow=todo.isFinished
+								return ;
+							}
+							if(active=='unfinished'){
+								todo.isShow=!todo.isFinished
+								return ;
+							}
+						})
+						
+					}
+				},
+				ready(){//componentDidMount
+					var that=this;
+					this.$http.get("./json/todos.json").then((res)=>{
+						that.todos=res.data
+						that._id=res.data.length;
+					})
+				}
+			})
+			
+		</script>
+	</body>
+</html>

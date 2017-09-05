@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			
+			<!-- <img v-bind:src="url"  v-bind:width="w" /> -->
+			<img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1099243532,2855297799&fm=58" :width="w" :h='h'/>
+			
+			
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			new Vue({
+				el:"#box",
+				data:{
+					url:'https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=1099243532,2855297799&fm=58',
+					w:'200px',
+					h:'500px'
+				}
+			})
+		</script>
+	</body>
+</html>
+
+

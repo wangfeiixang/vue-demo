@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>		
+		<div id="box">			
+			<aaa></aaa>
+			<aaa></aaa>
+			<aaa></aaa>
+			<aaa></aaa>
+		</div>
+		
+		
+		
+		<template id="app">
+			<h3>这是App组件</h3>
+			<h3>这里是它的数据：{{msg}}</h3>
+		</template>
+		
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//可以将组件的template内容在html里分出一个template小可爱来进行dom结构的搭建 
+			//然后通过组件的template属性上设置template小可爱的选择器来进行对应
+			var App=Vue.extend({
+				template:"#app",
+				data(){
+					return {
+						msg:'hello world'
+					}
+				}
+			})
+			
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				components:{
+					'aaa':App
+				}
+			})
+
+
+			
+		</script>
+	</body>
+</html>

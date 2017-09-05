@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>		
+		<div id="box">	
+			<button @click="component='aaa'">A</button>
+			<button v-on:click="component='bbb'">B</button>
+
+			
+			<component :is="component"></component>
+		</div>
+		<script src="../../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			//我们在不确定某一个地方的组件是哪一个的时候，我们可以使用component自带组件来处理，component组件的is属性的值是哪个组件名，这里就会替换成哪个组件
+			
+
+			new Vue({
+				el:"#box",
+				data:{
+					component:'aaa'
+				},
+				components:{
+					'aaa':{
+						template:"<h3>aaa</h3>"
+					},
+					'bbb':{
+						template:"<h3>bbb</h3>"
+					}				
+				}
+			})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
+			/*var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					word:'hello world',
+					component:'aaa'
+				},
+				components:{
+					'aaa':{
+						template:"<h5>这是A组件</h5>"
+					},
+					'bbb':{
+						template:"<h5>这是B组件</h5>",
+					}
+				}
+			})*/
+			
+
+			
+
+
+			
+		</script>
+	</body>
+</html>

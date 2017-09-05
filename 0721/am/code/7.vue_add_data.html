@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<input v-model="new_fruit" type="text" /><button @click="add">add</button>
+			<ul>
+				<li v-for="fruit in fruits">{{fruit}}</li>
+			</ul>
+			<template  v-for="(k,i) in fruits">
+				<p >{{k}}</p>
+				<p >{{i}}</p>
+			</template>
+		</div>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//vue 数据双向绑定的魅力，只要数据更改，页面上的东西会重新执行
+			//不管是方法，还是数据，都是会直接挂载vm上的，可以同this.来直接获取
+			//v-model绑定的数据，最好在data里去定义一下
+			new Vue({
+				el:"#box",
+				data:{
+					new_fruit:'',
+					fruits:['apple','banana','orange']
+				},
+				methods:{
+					add:function(){
+						this.fruits.push(this.new_fruit)
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

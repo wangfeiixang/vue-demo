@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>		
+		<div id="box">	
+			<h1>这是根组件</h1>
+			<hr />
+			<aaa></aaa>			
+		</div>
+		
+		<template id="a">
+			<div>
+				<h3>这是A组件</h3>
+				<p>这是儿子告诉我的话：{{sonword}}</p>
+				<hr />
+				<bbb v-on:tell-father="listenSon"></bbb>
+			</div>
+		</template>
+		
+		<template id="b">
+			<div>
+				<h4>这是B组件</h4>
+				<button @click="tellfather">tell-father</button>
+			</div>
+		</template>
+		<script src="../../base/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//子组件调用父组件的方法并传递数据
+			
+			//父组件给子组件绑定一个事件，事件的处理程序其实就是更改父组件自己的数据，
+			//但是这个事件在某一个时刻由子组价自己去触发，并传递参数
+			
+			//效果：子组件给父组件传递数据
+			
+			var B=Vue.extend({
+				template:"#b",
+				data(){
+					return {
+					}
+				},
+				methods:{
+					tellfather(){
+						console.log(this)
+						console.log(this.$emit)
+						this.$emit('tell-father','你好')
+					}
+
+
+
+					// tellFather(){
+					// 	this.$emit("tell-father",'hello daddy')
+					// }
+				}
+			})
+			
+			var A=Vue.extend({
+				template:"#a",
+				data(){
+					return {
+						sonword:''
+					}
+				},
+				methods:{
+					listenSon(word){
+						this.sonword = word
+					}
+
+
+					// listenSon(word){
+					// 	this.sonword=word
+					// }
+				},
+				components:{
+					'bbb':B
+				}
+			})
+			
+			var vm= new Vue({
+				el:"#box",//定义实例启动的dom
+				data:{//挂载数据
+					word:'hello',
+					component:'aaa'
+				},
+				methods:{
+				},
+				components:{
+					'aaa':A
+				}
+			})
+			
+
+
+			
+		</script>
+	</body>
+</html>

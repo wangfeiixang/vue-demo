@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box">
+			<input type="text" v-model="a" number debounce="500"/>
+			<p v-html="a"></p>
+			<p v-html="b"></p>
+			<hr>
+			<input type="text" v-model="c.value" number/>
+			<p>c :<span v-text="c.value"></span></p>
+			<p>b :<span v-text="b"></span></p>
+		</div>
+		<script src="../../base/vue.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../base/vue-resource.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//v-html 不止可以绑定数据，还可以解析标签
+		var vm = new Vue({
+				el:"#box",//要放选择器哟
+				data:{
+					word:'hello',
+					a:1,
+					b:2,
+					c:{
+						value:1
+					}
+				},
+				methods:{
+					
+				},
+				watch:{
+					a:function  (new1,old) {
+						console.log(new1,old)
+						this.b = new1*2
+					},
+					// 'c.value':function(new1,old){
+					// 	this.b = this.c.value*10
+					// }
+					// c:{
+					// 	handler:function(val,old){
+					// 		this.b = val.value*10
+					// 	},
+					// 	deep:true
+					// }
+
+				},
+				computed:{
+					b:function(){
+						return this.c.value*10
+					}
+				}
+				
+			})
+
+		var watch = vm.$watch('a',function(val,old){
+
+			console.log(val,old)
+		})
+		
+			
+			
+			
+		</script>
+	</body>
+</html>
